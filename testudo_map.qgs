@@ -929,7 +929,8 @@ def my_form_open(dialog, layer, feature):
         </LayoutItem>
         <GuideCollection visible="1"/>
       </PageCollection>
-      <LayoutItem labelText="Map data © OpenStreetMap contributors" uuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" excludeFromExports="0" valign="32" positionLock="false" halign="1" visibility="1" position="0,205.8,mm" itemRotation="0" frameJoinStyle="miter" frame="false" zValue="4" outlineWidthM="0.3,mm" size="71.9761,4.2,mm" opacity="1" templateUuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" marginX="0" id="" positionOnPage="0,205.8,mm" referencePoint="0" background="false" type="65641" marginY="0" htmlState="0" groupUuid="" blendMode="0">
+      <LayoutItem labelText="Map data © OpenStreetMap contributors, Turtle icon from Creative Tail" uuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" excludeFromExports="0" valign="32" positionLock="false" halign="1" visibility="1" position="0,205.8,mm" itemRotation="0" frameJoinStyle="miter" frame="false" zValue="4" outlineWidthM="0.3,mm" size="150,4.2,mm" opacity="1" templateUuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" marginX="0" id="" positionOnPage="0,205.8,mm" referencePoint="0" background="false" type="65641" marginY="0" htmlState="0" groupUuid="" blendMode="0">
+
         <FrameColor green="0" red="0" alpha="255" blue="0"/>
         <BackgroundColor green="255" red="255" alpha="255" blue="255"/>
         <LayoutObject>
