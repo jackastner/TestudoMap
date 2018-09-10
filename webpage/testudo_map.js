@@ -14,64 +14,70 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
     id: 'mapbox.streets',
 }).addTo(mymap);
 
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "/~kastner/testudo_data.json", true);
-xhr.onload = function (e) {
-    if (xhr.readyState === 4) {
-        if (xhr.status === 200) {
-            var data = JSON.parse(xhr.responseText);
+requestData();
 
-            var turtleIcon = L.icon({
-                iconUrl: '/~kastner/testudo_icon.svg',
-                iconSize: [25, 25]
-            });
-
-            L.geoJSON(data.testudos, {
-                onEachFeature: function (feature, layer) {
-                    layer.bindPopup(feature.properties.name);
-                },
-                pointToLayer: function(feature, latlng) {
-                    return L.marker(latlng, {icon: turtleIcon});
-                }
-            }).addTo(mymap);
-
-            var featureIndex = 0;
-            geojson = L.geoJSON(data.voronoi, {
-                style: function (feature) {
-                    var colorCode = getColor(featureIndex, data.voronoi.length);
-                    var options = {
-                        fillColor: colorCode,
-                        color: colorCode,
-                        fillOpacity: 0.5,
-                        opacity: 1,
-                        weight: 1
-                    };
-                    featureIndex++;
-                    return options;
-                },
-                onEachFeature: function(feature, layer) {
-                    layer.on({
-                        click: toggleHighlight,
-                        mouseover: function (e) {
-                            if(!featureClicked){
-                                highlightFeature(e.target);
-                            }
-                        },
-                        mouseout: function (e) {
-                            if(!featureClicked) {
-                                resetHighlight(e.target);
-                            }
-                       }
-                    });
-                }
-            }).addTo(mymap);
-        } else {
-            console.error(xhr.statusText);
+function requestData(){
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "/~kastner/testudo_data.json", true);
+    xhr.onload = function (e) {
+        if (xhr.readyState === 4) {
+            if (xhr.status === 200) {
+                var data = JSON.parse(xhr.responseText);
+                addGeoJson(data);
+            } else {
+                console.error(xhr.statusText);
+            }
         }
-    }
-};
-xhr.send(null)
+    };
+    xhr.send(null)
+}
 
+function addGeoJson(data){
+    var turtleIcon = L.icon({
+        iconUrl: '/~kastner/testudo_icon.svg',
+        iconSize: [25, 25]
+    });
+
+    L.geoJSON(data.testudos, {
+        onEachFeature: function (feature, layer) {
+            layer.bindPopup(feature.properties.name);
+        },
+        pointToLayer: function(feature, latlng) {
+            return L.marker(latlng, {icon: turtleIcon});
+        }
+    }).addTo(mymap);
+
+    var featureIndex = 0;
+    geojson = L.geoJSON(data.voronoi, {
+        style: function (feature) {
+            var colorCode = getColor(featureIndex, data.voronoi.length);
+            var options = {
+                fillColor: colorCode,
+                color: colorCode,
+                fillOpacity: 0.5,
+                opacity: 1,
+                weight: 1
+            };
+            featureIndex++;
+            return options;
+        },
+        onEachFeature: function(feature, layer) {
+            layer.on({
+                click: toggleHighlight,
+                mouseover: function (e) {
+                    if(!featureClicked){
+                        highlightFeature(e.target);
+                    }
+                },
+                mouseout: function (e) {
+                    if(!featureClicked) {
+                        resetHighlight(e.target);
+                    }
+               }
+            });
+        }
+    }).addTo(mymap);
+}
 
 function toggleHighlight(e) {
     if(featureClicked){
