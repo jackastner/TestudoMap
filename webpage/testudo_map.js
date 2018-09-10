@@ -6,6 +6,7 @@ var geojson;
  * it possible to toggle highlight with mouseout/over events
  * and click events.*/
 var highlightedFeature = null;
+var highlightedName = null;
 var featureClicked = false;
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFja2FzdG5lciIsImEiOiJjamx2bzhmc2YweTAxM2xxcGtqcHJtN3pkIn0.YKUh0QLQT_GHHVMdAyS-Mg',{
@@ -15,6 +16,26 @@ L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=p
 }).addTo(mymap);
 
 requestData();
+
+function addLegend(entries){
+    var legend = L.control({position: 'bottomright'});
+    var htmlEntries = [];
+
+    legend.onAdd = function (map) {
+        var div = L.DomUtil.create('div', 'legend');
+
+        entries.forEach(function(e) {
+            htmlEntries.push('<span id="' + e.name + '"><i style="background:' + e.color + '"></i>' + e.name + '</span>');
+            console.log(htmlEntries);
+        });
+
+        div.innerHTML = htmlEntries.join('<br>');
+        console.log(div.innerHTML);
+
+        return div;
+    }
+    legend.addTo(mymap);
+}
 
 function requestData(){
     var xhr = new XMLHttpRequest();
@@ -47,10 +68,16 @@ function addGeoJson(data){
         }
     }).addTo(mymap);
 
+    var entries = [];
+
     var featureIndex = 0;
     geojson = L.geoJSON(data.voronoi, {
         style: function (feature) {
             var colorCode = getColor(featureIndex, data.voronoi.length);
+
+            entries.push({name: feature.properties.name, color: colorCode});
+            console.log(entries);
+
             var options = {
                 fillColor: colorCode,
                 color: colorCode,
@@ -63,38 +90,49 @@ function addGeoJson(data){
         },
         onEachFeature: function(feature, layer) {
             layer.on({
-                click: toggleHighlight,
+                click: function (e) {
+                    toggleHighlight(e.target, feature.properties.name);
+                },
                 mouseover: function (e) {
                     if(!featureClicked){
-                        highlightFeature(e.target);
+                        highlightFeature(e.target, feature.properties.name);
                     }
                 },
                 mouseout: function (e) {
                     if(!featureClicked) {
-                        resetHighlight(e.target);
+                        resetHighlight(e.target, feature.properties.name);
                     }
                }
             });
         }
     }).addTo(mymap);
+
+    addLegend(entries);
 }
 
-function toggleHighlight(e) {
+function getLegendEntry(name){
+    return document.getElementById(name);
+}
+
+function toggleHighlight(e, name) {
     if(featureClicked){
-        resetHighlight(highlightedFeature);
+        resetHighlight(highlightedFeature, highlightedName);
     }
 
-    if(highlightedFeature === e.target){
+    if(highlightedFeature === e){
         highlightedFeature = null;
+        selectedName = null;
         featureClicked = false;
     } else {
-        highlightFeature(e.target);
-        highlightedFeature = e.target;
+        highlightFeature(e, name);
+        highlightedFeature = e;
+        highlightedName = name;
         featureClicked = true;
     }
 }
 
-function highlightFeature(layer) {
+function highlightFeature(layer, name) {
+    getLegendEntry(name).className = 'selected';
     layer.setStyle({
         weight: 4,
         color: 'black'
@@ -102,7 +140,8 @@ function highlightFeature(layer) {
     layer.bringToFront();
 }
 
-function resetHighlight(layer) {
+function resetHighlight(layer, name) {
+    getLegendEntry(name).className = '';
     layer.setStyle({
         weight: 1,
         color: layer.options.fillColor
