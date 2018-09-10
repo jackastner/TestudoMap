@@ -29,13 +29,20 @@ xhr.onload = function (e) {
                 }
             }).addTo(mymap);
 
+            var featureIndex = 0;
             L.geoJSON(data.voronoi, {
+                var hue = 360*(featureIndex / data.voronoi.length);
+                var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
+
                 style: function (feature) {
-                    return {
-                        color: '#'+Math.floor(Math.random() * 0xffffff).toString(16),
+                    var options = {
+                        color: colorCode,
                         weight: 3,
-                        opacity:1
+                        opacity: 1
                     };
+                    console.log(options.color);
+                    featureIndex++;
+                    return options;
                 }
             }).addTo(mymap);
         } else {
@@ -44,3 +51,31 @@ xhr.onload = function (e) {
     }
 };
 xhr.send(null)
+
+//Adapted from https://stackoverflow.com/a/6930407/3179747
+function hue2rgb(hue) {
+    var sextant = hue / 60;
+    var channel0 = Math.floor(255 * (sextant - Math.floor(sextant)));
+    var channel1 = 255 - channel0;
+
+    switch (Math.floor(sextant)) {
+        case 0:
+            return rgb2Int(255, channel0, 0);
+        case 1:
+            return rgb2Int(channel1, 255, 0);
+        case 2:
+            return rgb2Int(0, 255, channel0);
+        case 3:
+            return rgb2Int(0, channel1, 255);
+        case 4:
+            return rgb2Int(channel0, 0, 255);
+        case 5:
+        case 6:
+            return rgb2Int(255, 0 , channel1);
+    }
+
+}
+
+function rgb2Int(r, g, b) {
+    return (r<<16) + (g<<8) + b;
+}
