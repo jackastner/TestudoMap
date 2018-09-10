@@ -1,4 +1,12 @@
 var mymap = L.map('mapid').setView([38.991538, -76.946769], 15);
+var geojson;
+
+/* Used to keep track of which feature are highlighted
+ * and what type of event caused the highlight. This makes
+ * it possible to toggle highlight with mouseout/over events
+ * and click events.*/
+var highlightedFeature = null;
+var featureClicked = false;
 
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFja2FzdG5lciIsImEiOiJjamx2bzhmc2YweTAxM2xxcGtqcHJtN3pkIn0.YKUh0QLQT_GHHVMdAyS-Mg',{
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -12,9 +20,6 @@ xhr.onload = function (e) {
     if (xhr.readyState === 4) {
         if (xhr.status === 200) {
             var data = JSON.parse(xhr.responseText);
-            console.log(data.testudos);
-            console.log(data.voronoi);
-
 
             var turtleIcon = L.icon({
                 iconUrl: '/~kastner/testudo_icon.svg',
@@ -31,17 +36,33 @@ xhr.onload = function (e) {
             }).addTo(mymap);
 
             var featureIndex = 0;
-            L.geoJSON(data.voronoi, {
+            geojson = L.geoJSON(data.voronoi, {
                 style: function (feature) {
-                    var hue = 360*(featureIndex / data.voronoi.length);
-                    var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
+                    var colorCode = getColor(featureIndex, data.voronoi.length);
                     var options = {
+                        fillColor: colorCode,
                         color: colorCode,
-                        weight: 3,
-                        opacity: 1
+                        fillOpacity: 0.5,
+                        opacity: 1,
+                        weight: 1
                     };
                     featureIndex++;
                     return options;
+                },
+                onEachFeature: function(feature, layer) {
+                    layer.on({
+                        click: toggleHighlight,
+                        mouseover: function (e) {
+                            if(!featureClicked){
+                                highlightFeature(e.target);
+                            }
+                        },
+                        mouseout: function (e) {
+                            if(!featureClicked) {
+                                resetHighlight(e.target);
+                            }
+                       }
+                    });
                 }
             }).addTo(mymap);
         } else {
@@ -50,6 +71,43 @@ xhr.onload = function (e) {
     }
 };
 xhr.send(null)
+
+
+function toggleHighlight(e) {
+    if(featureClicked){
+        resetHighlight(highlightedFeature);
+    }
+
+    if(highlightedFeature === e.target){
+        highlightedFeature = null;
+        featureClicked = false;
+    } else {
+        highlightFeature(e.target);
+        highlightedFeature = e.target;
+        featureClicked = true;
+    }
+}
+
+function highlightFeature(layer) {
+    layer.setStyle({
+        weight: 4,
+        color: 'black'
+    });
+    layer.bringToFront();
+}
+
+function resetHighlight(layer) {
+    layer.setStyle({
+        weight: 1,
+        color: layer.options.fillColor
+    });
+}
+
+function getColor(idx, numFeatures){
+    var hue = 360*(idx / numFeatures);
+    var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
+    return colorCode;
+}
 
 //Adapted from https://stackoverflow.com/a/6930407/3179747
 function hue2rgb(hue) {
@@ -72,7 +130,6 @@ function hue2rgb(hue) {
         case 6:
             return rgb2Int(255, 0 , channel1);
     }
-
 }
 
 function rgb2Int(r, g, b) {
