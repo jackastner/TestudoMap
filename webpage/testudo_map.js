@@ -1,8 +1,9 @@
 var mymap = L.map('mapid').setView([38.991538, -76.946769], 15);
 
-L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png ', {
+L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFja2FzdG5lciIsImEiOiJjamx2bzhmc2YweTAxM2xxcGtqcHJtN3pkIn0.YKUh0QLQT_GHHVMdAyS-Mg',{
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 20,
+    id: 'mapbox.streets',
 }).addTo(mymap);
 
 var xhr = new XMLHttpRequest();
@@ -31,16 +32,14 @@ xhr.onload = function (e) {
 
             var featureIndex = 0;
             L.geoJSON(data.voronoi, {
-                var hue = 360*(featureIndex / data.voronoi.length);
-                var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
-
                 style: function (feature) {
+                    var hue = 360*(featureIndex / data.voronoi.length);
+                    var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
                     var options = {
                         color: colorCode,
                         weight: 3,
                         opacity: 1
                     };
-                    console.log(options.color);
                     featureIndex++;
                     return options;
                 }
