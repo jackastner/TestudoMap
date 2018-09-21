@@ -7,4 +7,4 @@ if [ ! -f testudo_data.json ]; then
     ./make_geojson.sh
 fi
 
-scp testudo_data.json testudo_icon.svg webpage/testudo_map.html webpage/testudo_map.js kastner@linux.grace.umd.edu:/users/kastner/pub/
+scp testudo_data.json testudo_icon.svg webpage/testudo_map.html webpage/testudo_map.js webpage/testudo_map.css kastner@linux.grace.umd.edu:/users/kastner/pub/
