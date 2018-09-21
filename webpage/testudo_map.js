@@ -9,8 +9,19 @@ var highlightedFeature = null;
 var highlightedName = null;
 var featureClicked = false;
 
+var attribution;
+if (window.innerWidth <= 800) {
+    //mobile or other devices with small screens get shorter attribution text.
+    attribution = '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> | ' +
+                  '&copy; <a href="https://www.mapbox.com/">Mapbox</a>';
+} else {
+    attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                  '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
+                  'Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a>';
+}
+
 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFja2FzdG5lciIsImEiOiJjamx2bzhmc2YweTAxM2xxcGtqcHJtN3pkIn0.YKUh0QLQT_GHHVMdAyS-Mg',{
-    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    attribution: attribution,
     maxZoom: 20,
     id: 'mapbox.streets',
 }).addTo(mymap);
