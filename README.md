@@ -18,8 +18,8 @@ Final processing of the data and rendering of the map is done either using QGIS
 locally or the Leaflet JavaScript API in a web browser.
 
 # Rendering the Map
- * Use the included script (`./testudo_query.sh`) to download on pre-process
-   OpenStreetMap data. When the scripts completes, you will have a  Spatialite
+ * Use the included Makefile (`make all`) to download and process the required
+   OpenStreetMap data. When the scripts complete, you will have a  Spatialite
    database populated with all the Testudo statues on campus and Voronoi
    polygons for each statue.
  * Open the included QGIS project file using QGIS version at least 3.2. If the 
@@ -34,7 +34,9 @@ locally or the Leaflet JavaScript API in a web browser.
 
 # Serving the webpage on the UMD Grace cluster
  * Replace every instance of 'kastner' in the files in webpage directory with
-   your directory id.
- * From the root of the repository run the script to upload the files
-   (`./publish_to_grace`). This script will generate the data files if they
-   are missing.
+   your directory id and update the grace url in the Makefile.
+ * As when using QGIS, use the included Makefile to generate data files
+   (`make all`).
+ * The Makefile also contains the commands requried to upload the files to
+   grace (`make publish`).
+ * View the webpage at https://terpconnect.umd.edu/~$DIRID/testudo_map.html

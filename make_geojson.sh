@@ -1,14 +1,15 @@
 #! /bin/bash
 
-GEOJSON_FILE=testudo_data.json
+DB_FILE=$1
+GEOJSON_FILE=$2
 
-TESTUDOS=$(spatialite testudo_data.db <<EOF
-    SELECT printf('{"type": "Feature", "properties": {"name": "%s"}, "geometry": %s},', name, name, AsGeoJson(Geometry)) FROM testudo_statues;
+TESTUDOS=$(spatialite $DB_FILE <<EOF
+    SELECT printf('{"type": "Feature", "properties": {"name": "%s"}, "geometry": %s},', name, AsGeoJson(Geometry)) FROM testudo_statues;
 EOF
 )
 
-VORONOI=$(spatialite testudo_data.db <<EOF
-    SELECT printf('{"type": "Feature", "properties": {"name": "%s"}, "geometry": %s},', name, name, AsGeoJson(voronoi_region)) FROM testudo_voronoi;
+VORONOI=$(spatialite $DB_FILE <<EOF
+    SELECT printf('{"type": "Feature", "properties": {"name": "%s"}, "geometry": %s},', name, AsGeoJson(voronoi_region)) FROM testudo_voronoi;
 EOF
 )
 
