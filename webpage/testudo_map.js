@@ -164,8 +164,8 @@ function resetHighlight(layer, name) {
 
 function getColor(idx, numFeatures){
     var hue = 360*(idx / numFeatures);
-    var colorCode = '#'+hue2rgb(hue).toString(16).padStart(6, 0);
-    return colorCode;
+    var colorHex = hue2rgb(hue).toString(16);
+    return '#' + ('0'.repeat(6-colorHex.length)) + colorHex;
 }
 
 //Adapted from https://stackoverflow.com/a/6930407/3179747
