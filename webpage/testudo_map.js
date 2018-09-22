@@ -1,4 +1,4 @@
-var mymap = L.map('mapid').setView([38.991538, -76.946769], 15);
+var mymap = L.map('mapid');
 var geojson;
 
 /* Used to keep track of which feature are highlighted
@@ -40,11 +40,9 @@ function addLegend(entries){
 
         entries.forEach(function(e) {
             htmlEntries.push('<span id="' + e.name + '"><i style="background:' + e.color + '"></i>' + e.name + '</span>');
-            console.log(htmlEntries);
         });
 
         div.innerHTML = htmlEntries.join('<br>');
-        console.log(div.innerHTML);
 
         return div;
     }
@@ -90,7 +88,6 @@ function addGeoJson(data){
             var colorCode = getColor(featureIndex, data.voronoi.length);
 
             entries.push({name: feature.properties.name, color: colorCode});
-            console.log(entries);
 
             var options = {
                 fillColor: colorCode,
@@ -122,6 +119,35 @@ function addGeoJson(data){
     }).addTo(mymap);
 
     addLegend(entries);
+    setMapBounds(data.voronoi);
+}
+
+function setMapBounds(multiPolygons) {
+    var dataPoints = [];
+    //for each multi pollygon
+    multiPolygons.forEach(function (multi) {
+        //for polygon
+        multi.geometry.coordinates.forEach(function (poly) {
+            //for each ring
+            poly.forEach(function (ring) {
+                ring.forEach(function (point) {
+                    dataPoints.push(L.latLng(point[1], point[0]));
+                });
+            });
+        });
+    });
+
+    var dataBounds = L.latLngBounds(dataPoints);
+    mymap.fitBounds(dataBounds);
+
+    mymap.on('locationfound', function(e) {
+        if(dataBounds.contains(e.latlng)){
+            mymap.panTo(e.latlng);
+            L.marker(e.latlng).addTo(mymap);
+        }
+    });
+
+    mymap.locate({setView: false, maxZoom: 16});
 }
 
 function getLegendEntry(name){
