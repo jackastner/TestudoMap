@@ -5,9 +5,16 @@
 ---languages or in a GIS package such as QGIS.
 --------------------------------------------------------------------------------
 
+SELECT "Creating spatial index on network nodes";
+
+--Create a spatial index on network nodes to enable fast neighbor queries
+SELECT CreateSpatialIndex('network_nodes', 'geometry');
+
+SELECT "Building testudo_statues table";
+
 --Extract the locations and names of testudo statues into a new table.
 CREATE TABLE testudo_statues AS
-SELECT osm_nodes.node_id, Geometry, rtrim(substr(name.v, 10),')') AS name
+SELECT osm_nodes.node_id, osm_nodes.Geometry, rtrim(substr(name.v, 10),')') AS name
 FROM osm_nodes 
 INNER JOIN osm_node_tags AS landmark 
     ON (osm_nodes.node_id = landmark.node_id AND
@@ -18,6 +25,23 @@ INNER JOIN osm_node_tags AS name
         name.k='name');
 
 SELECT RecoverGeometryColumn('testudo_statues', 'Geometry', 4326, 'POINT');
+
+SELECT "Building network_node testudo_node mapping";
+
+--Associate each testudo statues with a the closest network node
+CREATE TABLE testudo_network_nodes AS
+SELECT testudo.node_id as testudo_id, network.node_id as network_id
+FROM network_nodes AS network
+INNER JOIN testudo_statues AS testudo
+WHERE network.node_id IN (
+    SELECT ROWID
+    FROM SpatialIndex
+    WHERE f_table_name='network_nodes' AND
+          search_frame=Buffer(testudo.geometry, 0.005))
+GROUP BY testudo.node_id
+HAVING Min(Distance(testudo.geometry, network.geometry));
+
+SELECT "Extracting campus geometry into campus_geometry table";
 
 --Extract the polygon representing campus bounderies into a new table
 CREATE TABLE campus_geometry AS
@@ -32,6 +56,56 @@ INNER JOIN osm_nodes AS nodes
 ORDER BY refs.sub;
 
 SELECT RecoverGeometryColumn('campus_geometry', 'Geometry', 4326, 'POLYGON');
+
+SELECT "Constructing network based voronoi diagram";
+
+--Overlay a latice on the campus to be used as sample points for network voronoi.
+CREATE TABLE grid_points AS
+WITH
+    grid(multi) AS (
+        SELECT SquareGrid(Geometry, 0.005)
+        FROM campus_geometry
+    ),
+    grid_idx(n) AS (
+        SELECT 1
+        UNION ALL
+        SELECT n+1 FROM grid_idx
+        LIMIT (SELECT NumGeometries(multi) FROM grid)
+    )
+SELECT grid_idx.n AS n, Centroid(GeometryN(grid.multi, grid_idx.n)) AS p
+FROM grid_idx, grid;
+
+SELECT RecoverGeometryColumn('grid_points', 'p', 4326, 'POINT');
+
+CREATE TABLE grid_net_points AS
+SELECT grid_points.n AS n , network.node_id AS p
+FROM network_nodes AS network
+INNER JOIN grid_points
+WHERE network.node_id IN (
+    SELECT ROWID
+    FROM SpatialIndex
+    WHERE f_table_name='network_nodes' AND
+          search_frame=Buffer(grid_points.p, 0.0005))
+GROUP BY grid_points.n
+HAVING Min(Distance(grid_points.p, network.geometry));
+
+CREATE TABLE network_voronoi AS
+SELECT grid.p as grid_point, testudo_net.testudo_id, testudos.name FROM grid_points grid,
+     grid_net_points net,
+     testudo_statues testudos,
+     testudo_network_nodes testudo_net
+WHERE testudos.node_id=testudo_net.testudo_id AND
+      net.n=grid.n
+GROUP BY net.n
+HAVING MIN((SELECT Cost
+    FROM network_v
+    WHERE NodeFrom=net.p AND
+          NodeTo=testudo_net.network_id
+    LIMIT 1));
+
+SELECT RecoverGeometryColumn('network_voronoi', 'grid_point', 4326, 'POINT');
+
+SELECT "Constructing traditional voronoi diagram";
 
 --Contruct a table containing voronoi polygons for each testudo statue
 CREATE TABLE testudo_voronoi AS

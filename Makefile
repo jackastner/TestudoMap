@@ -13,14 +13,14 @@ all: $(json_file)
 publish: $(json_file) $(webpage_files) testudo_icon.svg
 	scp $(json_file) testudo_icon.svg $(webpage_files) kastner@linux.grace.umd.edu:/users/kastner/pub/
 
-$(osm_file):
+$(osm_file): overpass_query.sh
 	./overpass_query.sh $(overpass) $(osm_file)
 
-$(db_file): $(osm_file)
+$(db_file): $(osm_file) process_testudo_osm.sh process_testudo_osm.sql footpath_template
 	-rm --force $(db_file)
 	./process_testudo_osm.sh $(osm_file) $(db_file)
 
-$(json_file): $(db_file)
+$(json_file): $(db_file) make_geojson.sh
 	./make_geojson.sh $(db_file) $(json_file)
 
 clean:

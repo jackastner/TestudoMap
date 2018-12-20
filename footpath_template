@@ -1,0 +1,17 @@
+# Define a template for spatialite_osm_net that it will use to construct a
+# road/footpath network from osm data. This template aims to be very generous
+# in terms of what nodes and edges are includes since we aim to model walking
+# distance on campus where there a few ways pedestrians cannot walk.
+
+# default value
+NodingStrategy:way-ends
+
+# pedestrians are free to ignore one-way signs.
+OnewayStrategy:none
+
+# take all highways
+ClassInclude:highway:
+
+# If we want to acomadate people with disabilities, we can enable this option
+# to exclude stairs from the network.
+# ClassIgnore:highway:steps

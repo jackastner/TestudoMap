@@ -1,3 +1,4 @@
+*.osm
 *.qgs~
 *.db
 *.json

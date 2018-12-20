@@ -7,16 +7,9 @@ OSM_FILE=$2
 curl -d "@-" -X post $OVERPASS_INTERPRETER -o $OSM_FILE <<EOF
     area(3600133393)->.college_park;
 
-    /*get testudo statues*/
-    node
-      [historic_landmark=testudo]
-      (area.college_park);
-    out;
+    node(area.college_park);
+    out body;
 
-    /*get campus bonderies*/
-    way
-      [wikidata=Q503415]
-      (area.college_park);
-      (._;>;);
-    out;
+    way(area.college_park);
+    out body;
 EOF
