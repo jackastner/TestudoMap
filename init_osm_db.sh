@@ -26,5 +26,6 @@ spatialite_network \
     -c length \
     --overwrite-output
 
-# Secondary processing to create usefull tables
-spatialite -bail $DB_FILE < process_testudo_osm.sql
+spatialite --bail $DB_FILE <<EOF
+    SELECT CreateSpatialIndex('network_nodes', 'geometry');
+EOF
