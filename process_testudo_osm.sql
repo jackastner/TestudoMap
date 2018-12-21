@@ -32,7 +32,7 @@ WHERE network.node_id IN (
     SELECT ROWID
     FROM SpatialIndex
     WHERE f_table_name='network_nodes' AND
-          search_frame=Buffer(testudo.geometry, 0.001))
+          search_frame=Buffer(testudo.geometry, 0.01))
 GROUP BY testudo.node_id
 HAVING Min(Distance(testudo.geometry, network.geometry));
 
@@ -57,7 +57,7 @@ SELECT "Constructing network overlay latice";
 CREATE TABLE grid_points AS
 WITH
     grid(multi) AS (
-        SELECT SquareGrid(Geometry, 0.001)
+        SELECT SquareGrid(Geometry, 0.0005)
         FROM campus_geometry
     ),
     grid_idx(n) AS (
@@ -77,13 +77,13 @@ WHERE network.node_id IN (
     SELECT ROWID
     FROM SpatialIndex
     WHERE f_table_name='network_nodes' AND
-          search_frame=Buffer(grid_points.p, 0.001))
+          search_frame=Buffer(grid_points.p, 0.01))
 GROUP BY grid_points.n
 HAVING Min(Distance(grid_points.p, network.geometry));
 
 SELECT "Constructing network based voronoi diagram";
 
-CREATE TABLE network_voronoi AS
+CREATE TABLE grid_net_testudo AS
 SELECT net.p as grid_point, testudo_net.testudo_id, testudos.name
 FROM grid_net_points net,
      testudo_statues testudos,
@@ -98,7 +98,16 @@ HAVING MIN((
     LIMIT 1
 ));
 
-SELECT RecoverGeometryColumn('network_voronoi', 'grid_point', 4326, 'POINT');
+SELECT RecoverGeometryColumn('grid_net_testudo', 'grid_point', 4326, 'POINT');
+
+CREATE TABLE network_voronoi AS
+SELECT name, CastToMultiPolygon(ConcaveHull(ST_Collect(grid_point))) AS g
+FROM grid_net_testudo
+GROUP BY testudo_id;
+
+DELETE FROM network_voronoi WHERE g IS NULL;
+
+SELECT RecoverGeometryColumn('network_voronoi', 'g', 4326, 'MULTIPOLYGON');
 
 SELECT "Constructing traditional voronoi diagram";
 

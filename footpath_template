@@ -4,7 +4,7 @@
 # distance on campus where there a few ways pedestrians cannot walk.
 
 # default value
-NodingStrategy:way-ends
+NodingStrategy:all
 
 # pedestrians are free to ignore one-way signs.
 OnewayStrategy:none
