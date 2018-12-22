@@ -9,7 +9,7 @@ SELECT "Building testudo_statues table";
 
 --Extract the locations and names of testudo statues into a new table.
 CREATE TABLE testudo_statues AS
-SELECT osm_nodes.node_id, osm_nodes.Geometry, rtrim(substr(name.v, 10),')') AS name
+SELECT ROW_NUMBER() OVER(ORDER BY osm_nodes.node_id) AS n, osm_nodes.node_id, osm_nodes.Geometry, rtrim(substr(name.v, 10),')') AS name
 FROM osm_nodes
 INNER JOIN osm_node_tags AS landmark
     ON (osm_nodes.node_id = landmark.node_id AND
@@ -36,55 +36,10 @@ WHERE network.node_id IN (
 GROUP BY testudo.node_id
 HAVING Min(Distance(testudo.geometry, network.geometry));
 
-SELECT "Extracting campus geometry into campus_geometry table";
-
---Extract the polygon representing campus bounderies into a new table
-CREATE TABLE campus_geometry AS
-SELECT refs.way_id, MakePolygon(MakeLine(Geometry)) AS Geometry
-FROM osm_way_refs AS refs
-INNER JOIN osm_way_tags AS tags
-    ON (tags.way_id=refs.way_id AND
-        tags.k='wikidata'
-        AND tags.v='Q503415')
-INNER JOIN osm_nodes AS nodes
-    ON (nodes.node_id=refs.node_id)
-ORDER BY refs.sub;
-
-SELECT RecoverGeometryColumn('campus_geometry', 'Geometry', 4326, 'POLYGON');
-
-SELECT "Constructing network overlay latice";
-
-CREATE TABLE grid_points AS
-WITH
-    grid(multi) AS (
-        SELECT SquareGrid(Geometry, 0.0005)
-        FROM campus_geometry
-    ),
-    grid_idx(n) AS (
-        SELECT 1
-        UNION ALL
-        SELECT n+1 FROM grid_idx
-        LIMIT (SELECT NumGeometries(multi) FROM grid)
-    )
-SELECT grid_idx.n, Centroid(GeometryN(grid.multi, grid_idx.n)) AS p
-FROM grid_idx, grid;
-
-CREATE TABLE grid_net_points AS
-SELECT grid_points.n, grid_points.p, network.node_id
-FROM network_nodes AS network
-INNER JOIN grid_points
-WHERE network.node_id IN (
-    SELECT ROWID
-    FROM SpatialIndex
-    WHERE f_table_name='network_nodes' AND
-          search_frame=Buffer(grid_points.p, 0.01))
-GROUP BY grid_points.n
-HAVING Min(Distance(grid_points.p, network.geometry));
-
 SELECT "Constructing network based voronoi diagram";
 
 CREATE TABLE grid_net_testudo AS
-SELECT net.p as grid_point, testudo_net.testudo_id, testudos.name
+SELECT net.p as grid_point, testudos.n, testudos.name
 FROM grid_net_points net,
      testudo_statues testudos,
      testudo_network_nodes testudo_net
@@ -101,9 +56,9 @@ HAVING MIN((
 SELECT RecoverGeometryColumn('grid_net_testudo', 'grid_point', 4326, 'POINT');
 
 CREATE TABLE network_voronoi AS
-SELECT name, CastToMultiPolygon(ConcaveHull(ST_Collect(grid_point))) AS g
+SELECT name, CastToMultiPolygon(SnapToGrid(ConcaveHull(ST_Collect(grid_point)), 0.0005)) AS g
 FROM grid_net_testudo
-GROUP BY testudo_id;
+GROUP BY n;
 
 DELETE FROM network_voronoi WHERE g IS NULL;
 
