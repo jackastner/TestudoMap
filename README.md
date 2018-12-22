@@ -1,4 +1,7 @@
-![Sample Testudo Map](testudo_map.png)
+![Sample Voronoi Testudo Map](testudo_map.png)
+
+![Sample Network Testudo Map](testudo_map_network.png)
+
 
 # About the Map
 The 'Know Your Nearest Testudo' map shows you which statue of Testudo you are
