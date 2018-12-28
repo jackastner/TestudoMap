@@ -2,6 +2,8 @@
 
 ![Sample Network Testudo Map](testudo_map_network.png)
 
+![Sample Vector Network Testudo Map](testudo_map_network_vector.png)
+
 
 # About the Map
 The 'Know Your Nearest Testudo' map shows you which statue of Testudo you are

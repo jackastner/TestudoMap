@@ -28,4 +28,6 @@ spatialite_network \
 
 spatialite --bail $DB_FILE <<EOF
     SELECT CreateSpatialIndex('network_nodes', 'geometry');
+    CREATE INDEX idx_network_from ON network (node_from);
+    CREATE INDEX idx_network_to ON network (node_to);
 EOF
