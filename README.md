@@ -1,8 +1,8 @@
-![Sample Voronoi Testudo Map](testudo_map.png)
+![Sample Voronoi Testudo Map](maps/testudo_map.png)
 
-![Sample Network Testudo Map](testudo_map_network.png)
+![Sample Network Testudo Map](maps/testudo_map_network.png)
 
-![Sample Vector Network Testudo Map](testudo_map_network_vector.png)
+![Sample Vector Network Testudo Map](maps/testudo_map_network_vector.png)
 
 
 # About the Map
