@@ -12,7 +12,8 @@ empty_rules = $(init_osm_data) $(create_grid) $(process_testudo_osm) $(get_campu
 
 overpass = http://overpass-api.de/api/interpreter
 
-data_basename = testudo_data
+data_dir = data
+data_basename = $(data_dir)/testudo_data
 osm_file = $(data_basename).osm
 db_file = $(data_basename).db
 json_file = $(data_basename).json
@@ -28,7 +29,10 @@ all: $(json_file) $(tif_file) $(vector_network_voronoi)
 publish: $(json_file) $(webpage_files) testudo_icon.svg
 	scp $(json_file) testudo_icon.svg $(webpage_files) kastner@linux.grace.umd.edu:/users/kastner/pub/
 
-$(osm_file): overpass_query.sh
+$(data_dir):
+	mkdir $(data_dir)
+
+$(osm_file): overpass_query.sh | $(data_dir)
 	./overpass_query.sh $(overpass) $(osm_file)
 
 $(init_osm_data): $(osm_file) init_osm_db.sh footpath_template
@@ -60,10 +64,10 @@ $(vector_network_voronoi): $(process_testudo_osm) network_voronoi.py
 	python network_voronoi.py $(db_file)
 	touch $(vector_network_voronoi)
 
-$(json_file): $(simple_voronoi) make_geojson.sh
+$(json_file): $(simple_voronoi) make_geojson.sh | $(data_dir) 
 	./make_geojson.sh $(db_file) $(json_file)
 
-$(tif_file): $(grid_network_voronoi)
+$(tif_file): $(grid_network_voronoi) | $(data_dir)
 	gdal_rasterize -l grid_net_testudo\
 	               -a n\
 	               -tr 0.0005 0.0005\
@@ -79,3 +83,4 @@ histogram: $(tif_file) histogram.py
 
 clean:
 	rm --force $(data_files) $(empty_rules)
+	rmdir $(data_dir)
