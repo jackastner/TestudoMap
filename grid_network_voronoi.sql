@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP TABLE IF EXISTS grid_net_testudo;
 DROP TABLE IF EXISTS network_voronoi;
 
@@ -28,3 +30,5 @@ GROUP BY n;
 DELETE FROM network_voronoi WHERE g IS NULL;
 
 SELECT RecoverGeometryColumn('network_voronoi', 'g', 4326, 'MULTIPOLYGON');
+
+COMMIT;

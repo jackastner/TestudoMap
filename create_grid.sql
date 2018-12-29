@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP TABLE IF EXISTS grid_points;
 DROP TABLE IF EXISTS grid_net_points;
 
@@ -29,3 +31,5 @@ WHERE network.node_id IN (
           search_frame=Buffer(grid_points.p, 0.01))
 GROUP BY grid_points.n
 HAVING Min(Distance(grid_points.p, network.geometry));
+
+COMMIT;

@@ -4,6 +4,7 @@
 ---relevent data in a way that is easy to manipulate in other programming
 ---languages or in a GIS package such as QGIS.
 --------------------------------------------------------------------------------
+BEGIN;
 
 DROP TABLE IF EXISTS testudo_statues;
 DROP TABLE IF EXISTS testudo_network_nodes;
@@ -38,3 +39,5 @@ WHERE network.node_id IN (
           search_frame=Buffer(testudo.geometry, 0.01))
 GROUP BY testudo.node_id
 HAVING Min(Distance(testudo.geometry, network.geometry));
+
+COMMIT;

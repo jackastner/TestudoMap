@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP TABLE IF EXISTS testudo_voronoi;
 
 SELECT "Constructing traditional voronoi diagram";
@@ -23,3 +25,5 @@ FROM vals,
 WHERE (ST_Contains(voronoi_region, testudos.Geometry));
 
 SELECT RecoverGeometryColumn('testudo_voronoi', 'voronoi_region', 4326, 'MULTIPOLYGON');
+
+COMMIT;

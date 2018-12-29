@@ -37,36 +37,26 @@ $(init_osm_data): $(osm_file) init_osm_db.sh footpath_template
 	touch $(init_osm_data)
 
 $(get_campus): $(init_osm_data) get_campus.sql
-	cp $(db_file) $(db_file).bak
-	(spatialite -bail $(db_file) < get_campus.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
-	rm --force $(db_file).bak
+	spatialite -bail $(db_file) < get_campus.sql
 	touch $(get_campus)
 
 $(create_grid): $(get_campus) create_grid.sql
-	cp $(db_file) $(db_file).bak
-	(spatialite -bail $(db_file) < create_grid.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
-	rm --force $(db_file).bak
+	spatialite -bail $(db_file) < create_grid.sql
 	touch $(create_grid)
 
 $(process_testudo_osm): $(init_osm_data) process_testudo_osm.sql
-	cp $(db_file) $(db_file).bak
-	(spatialite -bail $(db_file) < process_testudo_osm.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
-	rm --force $(db_file).bak
+	spatialite -bail $(db_file) < process_testudo_osm.sql
 	touch $(process_testudo_osm)
 
 $(grid_network_voronoi): $(create_grid) $(process_testudo_osm)
-	cp $(db_file) $(db_file).bak
-	(spatialite -bail $(db_file) < grid_network_voronoi.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
-	rm --force $(db_file).bak
+	spatialite -bail $(db_file) < grid_network_voronoi.sql
 	touch $(grid_network_voronoi)
 
 $(simple_voronoi): $(process_testudo_osm) $(get_campus)
-	cp $(db_file) $(db_file).bak
-	(spatialite -bail $(db_file) < simple_voronoi.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
-	rm --force $(db_file).bak
+	spatialite -bail $(db_file) < simple_voronoi.sql
 	touch $(simple_voronoi)
 
-$(vector_network_voronoi): $(process_testudo_osm)
+$(vector_network_voronoi): $(process_testudo_osm) network_voronoi.py
 	python network_voronoi.py $(db_file)
 	touch $(vector_network_voronoi)
 

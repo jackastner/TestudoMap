@@ -1,3 +1,5 @@
+BEGIN;
+
 DROP TABLE IF EXISTS campus_geometry;
 
 SELECT "Extracting campus geometry into campus_geometry table";
@@ -15,3 +17,5 @@ INNER JOIN osm_nodes AS nodes
 ORDER BY refs.sub;
 
 SELECT RecoverGeometryColumn('campus_geometry', 'Geometry', 4326, 'POLYGON');
+
+COMMIT;
