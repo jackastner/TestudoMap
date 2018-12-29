@@ -23,7 +23,7 @@ def testudo_for_id(cursor, testudo_id):
 def create_search_table(cursor):
     sql = """
           CREATE TABLE network_search
-          (edge_id, testudo_id)
+          (edge_id, geometry, testudo_id)
           """
     cursor.execute(sql)
 
@@ -33,16 +33,24 @@ def drop_search_table(cursor):
           """
     cursor.execute(sql)
 
-def insert_search_node(cursor, node, testudo):
+def insert_search_node(cursor, node_to, node_from, testudo):
     sql = """
           INSERT INTO network_search
-          VALUES (?, ?)
+              SELECT id, geometry, ?
+              FROM network
+              WHERE (node_to = ? AND node_from = ?) OR
+                    (node_to = ? AND node_from = ?)
           """
-    cursor.execute(sql, [node, testudo]);
+    cursor.execute(sql, [testudo, node_to, node_from, node_from, node_to]);
 
-def insert_search(cursor, visited_map):
-    for (n, (t, _)) in visited_map.items():
-        insert_search_node(cursor, n ,t)
+def insert_search(cursor, edge_map):
+    for ((n0, n1), t) in edge_map.items():
+        insert_search_node(cursor, n0, n1, t)
+
+    sql = """
+          SELECT RecoverGeometryColumn('network_search', 'geometry', 4326, 'LINESTRING');
+          """
+    cursor.execute(sql)
 
 def get_edges(cursor, node_from):
     sql = """
@@ -65,41 +73,6 @@ def get_testudo_network_nodes(cursor):
           """
     return cursor.execute(sql).fetchall()
 
-def drop_edge_table(cursor):
-    sql = """
-          DROP TABLE IF EXISTS edge_search;
-          DROP TABLE IF EXISTS wft;
-          """
-          
-    c.executescript(sql)
-
-# This should be incorperated into the main search function since it's
-# very inefficient as is.
-def create_edge_table(cursor):
-    sql = """
-          CREATE TABLE edge_search AS
-          SELECT net.id AS edge_id, stat.node_id AS testudo_id
-          FROM network net,
-               testudo_statues stat,
-               network_search search,
-               network_search search2
-          WHERE search.testudo_id = stat.node_id AND
-                search2.testudo_id = stat.node_id AND
-                net.node_from = search.edge_id AND
-                net.node_to = search2.edge_id;
-
-          CREATE TABLE wft
-          AS SELECT search.testudo_id, search.edge_id, net.geometry
-          FROM edge_search search,
-               network net 
-          WHERE search.edge_id = net.id;
-
-          SELECT RecoverGeometryColumn('wft', 'geometry', 4326, 'LINESTRING');
-          """
-    c.executescript(sql)
-
-
-
 def network_search(cursor):
 
     # search will be started at the same time at the testudo statues
@@ -108,6 +81,11 @@ def network_search(cursor):
     # associates a node if with a testudo statue id and distance to the statue
     # node_id -> (testudo_id, dist)
     visited_map = {}
+
+    #associate edges (pairs of nodes) with a testudo statue.
+    # (node_id, node_id) -> testudo_id
+    visited_edges = {}
+
     heap = []
 
     # populate data structures so that each testudo is in the queue and is
@@ -129,9 +107,10 @@ def network_search(cursor):
             new_d = current_assoc[1] + c
             if (not (n in visited_map)) or (new_d < visited_map[n][1]):
                 visited_map[n] = (current_assoc[0], new_d)
+                visited_edges[current,n] = current_assoc[0]
                 heapq.heappush(heap, (new_d, n))
 
-    return visited_map
+    return visited_edges
 
 
 db_file = sys.argv[1]
@@ -153,14 +132,6 @@ insert_search(c, search_result)
 t1 = time.time();
 
 print('insert done in ' + str(t1-t0))
-
-drop_edge_table(c)
-
-t0 = time.time();
-create_edge_table(c)
-t1 = time.time();
-
-print('search mapped to edges in ' + str(t1-t0))
 
 conn.commit()
 conn.close()
