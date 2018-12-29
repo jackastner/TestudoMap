@@ -1,3 +1,5 @@
+DROP TABLE IF EXISTS campus_geometry;
+
 SELECT "Extracting campus geometry into campus_geometry table";
 
 --Extract the polygon representing campus bounderies into a new table

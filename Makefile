@@ -4,8 +4,11 @@ init_osm_data = .init_osm_data
 create_grid = .create_grid
 process_testudo_osm = .process_testudo_osm
 get_campus = .get_campus
+grid_network_voronoi = .grid_network_voronoi
+simple_voronoi = .simple_voronoi
+vector_network_voronoi = .vector_network_voronoi
 
-empty_rules = $(init_osm_data) $(create_grid) $(process_testudo_osm) $(get_campus)
+empty_rules = $(init_osm_data) $(create_grid) $(process_testudo_osm) $(get_campus) $(grid_network_voronoi) $(simple_voronoi) $(vector_network_voronoi)
 
 overpass = http://overpass-api.de/api/interpreter
 
@@ -20,7 +23,7 @@ data_files = $(osm_file) $(db_file) $(json_file) $(tif_file)
 webpage_dir = webpage
 webpage_files = $(webpage_dir)/testudo_map.html $(webpage_dir)/testudo_map.css $(webpage_dir)/testudo_map.js
 
-all: $(json_file) $(tif_file)
+all: $(json_file) $(tif_file) $(vector_network_voronoi)
 
 publish: $(json_file) $(webpage_files) testudo_icon.svg
 	scp $(json_file) testudo_icon.svg $(webpage_files) kastner@linux.grace.umd.edu:/users/kastner/pub/
@@ -33,31 +36,44 @@ $(init_osm_data): $(osm_file) init_osm_db.sh footpath_template
 	./init_osm_db.sh $(osm_file) $(db_file)
 	touch $(init_osm_data)
 
-$(get_campus): $(init_osm_data) get_campus.sql drop_campus.sql
+$(get_campus): $(init_osm_data) get_campus.sql
 	cp $(db_file) $(db_file).bak
-	spatialite -bail $(db_file) < drop_campus.sql
 	(spatialite -bail $(db_file) < get_campus.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
 	rm --force $(db_file).bak
 	touch $(get_campus)
 
-$(create_grid): $(get_campus) create_grid.sql drop_grid.sql
+$(create_grid): $(get_campus) create_grid.sql
 	cp $(db_file) $(db_file).bak
-	spatialite -bail $(db_file) < drop_grid.sql
 	(spatialite -bail $(db_file) < create_grid.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
 	rm --force $(db_file).bak
 	touch $(create_grid)
 
-$(process_testudo_osm): $(create_grid) $(get_campus) process_testudo_osm.sql drop_testudo_data.sql
+$(process_testudo_osm): $(init_osm_data) process_testudo_osm.sql
 	cp $(db_file) $(db_file).bak
-	spatialite -bail $(db_file) < drop_testudo_data.sql
 	(spatialite -bail $(db_file) < process_testudo_osm.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
 	rm --force $(db_file).bak
 	touch $(process_testudo_osm)
 
-$(json_file): $(process_testudo_osm) make_geojson.sh
+$(grid_network_voronoi): $(create_grid) $(process_testudo_osm)
+	cp $(db_file) $(db_file).bak
+	(spatialite -bail $(db_file) < grid_network_voronoi.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
+	rm --force $(db_file).bak
+	touch $(grid_network_voronoi)
+
+$(simple_voronoi): $(process_testudo_osm) $(get_campus)
+	cp $(db_file) $(db_file).bak
+	(spatialite -bail $(db_file) < simple_voronoi.sql) || (rm --force $(db_file); cp $(db_file).bak $(db_file); rm --force $(db_file).bak; false)
+	rm --force $(db_file).bak
+	touch $(simple_voronoi)
+
+$(vector_network_voronoi): $(process_testudo_osm)
+	python network_voronoi.py $(db_file)
+	touch $(vector_network_voronoi)
+
+$(json_file): $(simple_voronoi) make_geojson.sh
 	./make_geojson.sh $(db_file) $(json_file)
 
-$(tif_file): $(process_testudo_osm)
+$(tif_file): $(grid_network_voronoi)
 	gdal_rasterize -l grid_net_testudo\
 	               -a n\
 	               -tr 0.0005 0.0005\

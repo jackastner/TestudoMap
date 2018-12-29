@@ -8,3 +8,6 @@
 .create_grid
 .process_testudo_osm
 .get_campus
+.grid_network_voronoi
+.simple_voronoi
+.vector_network_voronoi
