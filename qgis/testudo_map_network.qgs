@@ -1,5 +1,5 @@
 <!DOCTYPE qgis PUBLIC 'http://mrcc.com/qgis.dtd' 'SYSTEM'>
-<qgis projectname="" version="3.2.3-Bonn">
+<qgis projectname="" version="3.6.3-Noosa">
   <homePath path=""/>
   <title></title>
   <autotransaction active="0"/>
@@ -19,13 +19,13 @@
   </projectCrs>
   <layer-tree-group>
     <customproperties/>
-    <layer-tree-layer source="dbname='/home/john/Code/TestudoMap/testudo_data.db' table=&quot;testudo_statues&quot; (geometry) sql=" providerKey="spatialite" name="testudo_statues" expanded="1" checked="Qt::Checked" id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4">
+    <layer-tree-layer source="dbname='../data/testudo_data.db' table=&quot;testudo_statues&quot; (geometry) sql=" id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4" providerKey="spatialite" checked="Qt::Checked" name="testudo_statues" expanded="1">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer source="./testudo_data.tif" providerKey="gdal" name="testudo_data" expanded="0" checked="Qt::Checked" id="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d">
+    <layer-tree-layer source="../data/testudo_data.tif" id="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d" providerKey="gdal" checked="Qt::Checked" name="testudo_data" expanded="1">
       <customproperties/>
     </layer-tree-layer>
-    <layer-tree-layer source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=https://tiles.wmflabs.org/osm-no-labels/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=18&amp;zmin=0" providerKey="wms" name="osm-no-labels" expanded="1" checked="Qt::Checked" id="osm_no_labels_4b07dbfe_725d_492d_99fd_b9e2d72a7f8d">
+    <layer-tree-layer source="crs=EPSG:3857&amp;format&amp;type=xyz&amp;url=https://tiles.wmflabs.org/osm-no-labels/%7Bz%7D/%7Bx%7D/%7By%7D.png&amp;zmax=18&amp;zmin=0" id="osm_no_labels_4b07dbfe_725d_492d_99fd_b9e2d72a7f8d" providerKey="wms" checked="Qt::Checked" name="osm-no-labels" expanded="1">
       <customproperties/>
     </layer-tree-layer>
     <custom-order enabled="0">
@@ -34,19 +34,19 @@
       <item>testudo_data_39874524_46b7_4611_9e70_c500bcfba88d</item>
     </custom-order>
   </layer-tree-group>
-  <snapping-settings unit="1" tolerance="12" enabled="0" intersection-snapping="0" mode="2" type="1">
+  <snapping-settings enabled="0" mode="2" type="1" unit="1" tolerance="12" intersection-snapping="0">
     <individual-layer-settings>
-      <layer-setting units="1" tolerance="12" enabled="0" id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4" type="1"/>
+      <layer-setting id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4" units="1" enabled="0" type="1" tolerance="12"/>
     </individual-layer-settings>
   </snapping-settings>
   <relations/>
   <mapcanvas annotationsVisible="1" name="theMapCanvas">
     <units>degrees</units>
     <extent>
-      <xmin>-76.96309023593504151</xmin>
-      <ymin>38.98204572347463426</ymin>
-      <xmax>-76.9307486609350093</xmax>
-      <ymax>39.00492417347464169</ymax>
+      <xmin>-76.97189398038328534</xmin>
+      <ymin>38.97025865357812791</ymin>
+      <xmax>-76.92338161788340756</xmax>
+      <ymax>39.00457632857813906</ymax>
     </extent>
     <rotation>0</rotation>
     <destinationsrs>
@@ -62,97 +62,30 @@
       </spatialrefsys>
     </destinationsrs>
     <rendermaptile>0</rendermaptile>
+    <expressionContextScope/>
   </mapcanvas>
+  <projectModels/>
   <legend updateDrawingOrder="true">
-    <legendlayer drawingOrder="-1" name="testudo_statues" checked="Qt::Checked" showFeatureCount="0" open="true">
-      <filegroup hidden="false" open="true">
-        <legendlayerfile visible="1" isInOverview="0" layerid="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4"/>
+    <legendlayer drawingOrder="-1" checked="Qt::Checked" name="testudo_statues" showFeatureCount="0" open="true">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile layerid="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4" visible="1" isInOverview="0"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" name="testudo_data" checked="Qt::Checked" showFeatureCount="0" open="false">
-      <filegroup hidden="false" open="false">
-        <legendlayerfile visible="1" isInOverview="0" layerid="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d"/>
+    <legendlayer drawingOrder="-1" checked="Qt::Checked" name="testudo_data" showFeatureCount="0" open="true">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile layerid="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d" visible="1" isInOverview="0"/>
       </filegroup>
     </legendlayer>
-    <legendlayer drawingOrder="-1" name="osm-no-labels" checked="Qt::Checked" showFeatureCount="0" open="true">
-      <filegroup hidden="false" open="true">
-        <legendlayerfile visible="1" isInOverview="0" layerid="osm_no_labels_4b07dbfe_725d_492d_99fd_b9e2d72a7f8d"/>
+    <legendlayer drawingOrder="-1" checked="Qt::Checked" name="osm-no-labels" showFeatureCount="0" open="true">
+      <filegroup open="true" hidden="false">
+        <legendlayerfile layerid="osm_no_labels_4b07dbfe_725d_492d_99fd_b9e2d72a7f8d" visible="1" isInOverview="0"/>
       </filegroup>
     </legendlayer>
   </legend>
   <mapViewDocks/>
   <mapViewDocks3D/>
-  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
-    <units>degrees</units>
-    <extent>
-      <xmin>0</xmin>
-      <ymin>0</ymin>
-      <xmax>0</xmax>
-      <ymax>0</ymax>
-    </extent>
-    <rotation>0</rotation>
-    <destinationsrs>
-      <spatialrefsys>
-        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-        <srsid>3452</srsid>
-        <srid>4326</srid>
-        <authid>EPSG:4326</authid>
-        <description>WGS 84</description>
-        <projectionacronym>longlat</projectionacronym>
-        <ellipsoidacronym>WGS84</ellipsoidacronym>
-        <geographicflag>true</geographicflag>
-      </spatialrefsys>
-    </destinationsrs>
-    <rendermaptile>0</rendermaptile>
-  </mapcanvas>
-  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
-    <units>degrees</units>
-    <extent>
-      <xmin>0</xmin>
-      <ymin>0</ymin>
-      <xmax>0</xmax>
-      <ymax>0</ymax>
-    </extent>
-    <rotation>0</rotation>
-    <destinationsrs>
-      <spatialrefsys>
-        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-        <srsid>3452</srsid>
-        <srid>4326</srid>
-        <authid>EPSG:4326</authid>
-        <description>WGS 84</description>
-        <projectionacronym>longlat</projectionacronym>
-        <ellipsoidacronym>WGS84</ellipsoidacronym>
-        <geographicflag>true</geographicflag>
-      </spatialrefsys>
-    </destinationsrs>
-    <rendermaptile>0</rendermaptile>
-  </mapcanvas>
-  <mapcanvas annotationsVisible="1" name="mAreaCanvas">
-    <units>degrees</units>
-    <extent>
-      <xmin>0</xmin>
-      <ymin>0</ymin>
-      <xmax>0</xmax>
-      <ymax>0</ymax>
-    </extent>
-    <rotation>0</rotation>
-    <destinationsrs>
-      <spatialrefsys>
-        <proj4>+proj=longlat +datum=WGS84 +no_defs</proj4>
-        <srsid>3452</srsid>
-        <srid>4326</srid>
-        <authid>EPSG:4326</authid>
-        <description>WGS 84</description>
-        <projectionacronym>longlat</projectionacronym>
-        <ellipsoidacronym>WGS84</ellipsoidacronym>
-        <geographicflag>true</geographicflag>
-      </spatialrefsys>
-    </destinationsrs>
-    <rendermaptile>0</rendermaptile>
-  </mapcanvas>
   <projectlayers>
-    <maplayer hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" autoRefreshEnabled="0" maxScale="0" refreshOnNotifyMessage="" refreshOnNotifyEnabled="0" minScale="1e+08" type="raster">
+    <maplayer styleCategories="AllStyleCategories" refreshOnNotifyMessage="" type="raster" autoRefreshEnabled="0" minScale="1e+08" autoRefreshTime="0" refreshOnNotifyEnabled="0" hasScaleBasedVisibilityFlag="0" maxScale="0">
       <extent>
         <xmin>-20037508.34278924390673637</xmin>
         <ymin>-20037508.34278925508260727</ymin>
@@ -196,23 +129,28 @@
             <description></description>
             <projectionacronym></projectionacronym>
             <ellipsoidacronym></ellipsoidacronym>
-            <geographicflag>true</geographicflag>
+            <geographicflag>false</geographicflag>
           </spatialrefsys>
         </crs>
         <extent/>
       </resourceMetadata>
-      <customproperties>
-        <property key="identify/format" value="Undefined"/>
-      </customproperties>
       <provider>wms</provider>
       <noData>
-        <noDataList useSrcNoData="0" bandNo="1"/>
+        <noDataList bandNo="1" useSrcNoData="0"/>
       </noData>
       <map-layer-style-manager current="default">
         <map-layer-style name="default"/>
       </map-layer-style-manager>
+      <flags>
+        <Identifiable>1</Identifiable>
+        <Removable>1</Removable>
+        <Searchable>1</Searchable>
+      </flags>
+      <customproperties>
+        <property value="Undefined" key="identify/format"/>
+      </customproperties>
       <pipe>
-        <rasterrenderer alphaBand="-1" band="1" opacity="1" type="singlebandcolordata">
+        <rasterrenderer band="1" type="singlebandcolordata" opacity="1" alphaBand="-1">
           <rasterTransparency/>
           <minMaxOrigin>
             <limits>None</limits>
@@ -223,13 +161,13 @@
             <stdDevFactor>2</stdDevFactor>
           </minMaxOrigin>
         </rasterrenderer>
-        <brightnesscontrast contrast="0" brightness="0"/>
-        <huesaturation colorizeGreen="128" saturation="0" grayscaleMode="0" colorizeRed="255" colorizeBlue="128" colorizeStrength="100" colorizeOn="0"/>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeBlue="128" colorizeRed="255" colorizeStrength="100" saturation="0" grayscaleMode="0" colorizeOn="0" colorizeGreen="128"/>
         <rasterresampler maxOversampling="2"/>
       </pipe>
       <blendMode>0</blendMode>
     </maplayer>
-    <maplayer hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" autoRefreshEnabled="0" maxScale="0" refreshOnNotifyMessage="" refreshOnNotifyEnabled="0" minScale="1e+08" type="raster">
+    <maplayer styleCategories="AllStyleCategories" refreshOnNotifyMessage="" type="raster" autoRefreshEnabled="0" minScale="1e+08" autoRefreshTime="0" refreshOnNotifyEnabled="0" hasScaleBasedVisibilityFlag="0" maxScale="0">
       <extent>
         <xmin>-76.96165849999999864</xmin>
         <ymin>38.98086570000000251</ymin>
@@ -237,7 +175,7 @@
         <ymax>39.00286570000000097</ymax>
       </extent>
       <id>testudo_data_39874524_46b7_4611_9e70_c500bcfba88d</id>
-      <datasource>./testudo_data.tif</datasource>
+      <datasource>../data/testudo_data.tif</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -286,7 +224,7 @@
           </spatialrefsys>
         </crs>
         <extent>
-          <spatial crs="" minx="0" maxz="0" miny="0" minz="0" maxx="0" dimensions="2" maxy="0"/>
+          <spatial maxz="0" minz="0" maxy="0" minx="0" miny="0" crs="" dimensions="2" maxx="0"/>
           <temporal>
             <period>
               <start></start>
@@ -295,24 +233,29 @@
           </temporal>
         </extent>
       </resourceMetadata>
-      <customproperties>
-        <property key="WMSBackgroundLayer" value="false"/>
-        <property key="WMSPublishDataSourceUrl" value="false"/>
-        <property key="embeddedWidgets/count" value="0"/>
-        <property key="identify/format" value="Value"/>
-      </customproperties>
       <provider>gdal</provider>
       <noData>
-        <noDataList useSrcNoData="1" bandNo="1"/>
+        <noDataList bandNo="1" useSrcNoData="1"/>
       </noData>
       <map-layer-style-manager current="default">
         <map-layer-style name="default"/>
       </map-layer-style-manager>
+      <flags>
+        <Identifiable>1</Identifiable>
+        <Removable>1</Removable>
+        <Searchable>1</Searchable>
+      </flags>
+      <customproperties>
+        <property value="false" key="WMSBackgroundLayer"/>
+        <property value="false" key="WMSPublishDataSourceUrl"/>
+        <property value="0" key="embeddedWidgets/count"/>
+        <property value="Value" key="identify/format"/>
+      </customproperties>
       <pipe>
-        <rasterrenderer alphaBand="-1" band="1" classificationMax="6" opacity="1" type="singlebandpseudocolor" classificationMin="1">
+        <rasterrenderer band="1" type="singlebandpseudocolor" opacity="1" alphaBand="-1" classificationMax="7" classificationMin="1">
           <rasterTransparency/>
           <minMaxOrigin>
-            <limits>None</limits>
+            <limits>MinMax</limits>
             <extent>WholeRaster</extent>
             <statAccuracy>Estimated</statAccuracy>
             <cumulativeCutLower>0.02</cumulativeCutLower>
@@ -320,38 +263,39 @@
             <stdDevFactor>2</stdDevFactor>
           </minMaxOrigin>
           <rastershader>
-            <colorrampshader classificationMode="2" colorRampType="EXACT" clip="0">
+            <colorrampshader clip="0" classificationMode="2" colorRampType="INTERPOLATED">
               <colorramp name="[source]" type="gradient">
-                <prop k="color1" v="68,1,84,255"/>
-                <prop k="color2" v="253,231,37,255"/>
-                <prop k="discrete" v="0"/>
-                <prop k="rampType" v="gradient"/>
-                <prop k="stops" v="0.0196078;70,8,92,255:0.0392157;71,16,99,255:0.0588235;72,23,105,255:0.0784314;72,29,111,255:0.0980392;72,36,117,255:0.117647;71,42,122,255:0.137255;70,48,126,255:0.156863;69,55,129,255:0.176471;67,61,132,255:0.196078;65,66,135,255:0.215686;63,72,137,255:0.235294;61,78,138,255:0.254902;58,83,139,255:0.27451;56,89,140,255:0.294118;53,94,141,255:0.313725;51,99,141,255:0.333333;49,104,142,255:0.352941;46,109,142,255:0.372549;44,113,142,255:0.392157;42,118,142,255:0.411765;41,123,142,255:0.431373;39,128,142,255:0.45098;37,132,142,255:0.470588;35,137,142,255:0.490196;33,142,141,255:0.509804;32,146,140,255:0.529412;31,151,139,255:0.54902;30,156,137,255:0.568627;31,161,136,255:0.588235;33,165,133,255:0.607843;36,170,131,255:0.627451;40,174,128,255:0.647059;46,179,124,255:0.666667;53,183,121,255:0.686275;61,188,116,255:0.705882;70,192,111,255:0.72549;80,196,106,255:0.745098;90,200,100,255:0.764706;101,203,94,255:0.784314;112,207,87,255:0.803922;124,210,80,255:0.823529;137,213,72,255:0.843137;149,216,64,255:0.862745;162,218,55,255:0.882353;176,221,47,255:0.901961;189,223,38,255:0.921569;202,225,31,255:0.941176;216,226,25,255:0.960784;229,228,25,255:0.980392;241,229,29,255"/>
+                <prop v="68,1,84,255" k="color1"/>
+                <prop v="253,231,37,255" k="color2"/>
+                <prop v="0" k="discrete"/>
+                <prop v="gradient" k="rampType"/>
+                <prop v="0.0196078;70,8,92,255:0.0392157;71,16,99,255:0.0588235;72,23,105,255:0.0784314;72,29,111,255:0.0980392;72,36,117,255:0.117647;71,42,122,255:0.137255;70,48,126,255:0.156863;69,55,129,255:0.176471;67,61,132,255:0.196078;65,66,135,255:0.215686;63,72,137,255:0.235294;61,78,138,255:0.254902;58,83,139,255:0.27451;56,89,140,255:0.294118;53,94,141,255:0.313725;51,99,141,255:0.333333;49,104,142,255:0.352941;46,109,142,255:0.372549;44,113,142,255:0.392157;42,118,142,255:0.411765;41,123,142,255:0.431373;39,128,142,255:0.45098;37,132,142,255:0.470588;35,137,142,255:0.490196;33,142,141,255:0.509804;32,146,140,255:0.529412;31,151,139,255:0.54902;30,156,137,255:0.568627;31,161,136,255:0.588235;33,165,133,255:0.607843;36,170,131,255:0.627451;40,174,128,255:0.647059;46,179,124,255:0.666667;53,183,121,255:0.686275;61,188,116,255:0.705882;70,192,111,255:0.72549;80,196,106,255:0.745098;90,200,100,255:0.764706;101,203,94,255:0.784314;112,207,87,255:0.803922;124,210,80,255:0.823529;137,213,72,255:0.843137;149,216,64,255:0.862745;162,218,55,255:0.882353;176,221,47,255:0.901961;189,223,38,255:0.921569;202,225,31,255:0.941176;216,226,25,255:0.960784;229,228,25,255:0.980392;241,229,29,255" k="stops"/>
               </colorramp>
-              <item label="1" value="1" color="#440154" alpha="191"/>
-              <item label="2" value="2" color="#404387" alpha="191"/>
-              <item label="3" value="3" color="#29788e" alpha="191"/>
-              <item label="4" value="4" color="#22a884" alpha="191"/>
-              <item label="5" value="5" color="#7ad251" alpha="191"/>
-              <item label="6" value="6" color="#fde725" alpha="191"/>
+              <item value="1" alpha="255" color="#440154" label="1"/>
+              <item value="2" alpha="255" color="#443a83" label="2"/>
+              <item value="3" alpha="255" color="#31688e" label="3"/>
+              <item value="4" alpha="255" color="#20908d" label="4"/>
+              <item value="5" alpha="255" color="#35b779" label="5"/>
+              <item value="6" alpha="255" color="#8fd744" label="6"/>
+              <item value="7" alpha="255" color="#fde725" label="7"/>
             </colorrampshader>
           </rastershader>
         </rasterrenderer>
-        <brightnesscontrast contrast="0" brightness="0"/>
-        <huesaturation colorizeGreen="128" saturation="0" grayscaleMode="0" colorizeRed="255" colorizeBlue="128" colorizeStrength="100" colorizeOn="0"/>
+        <brightnesscontrast brightness="0" contrast="0"/>
+        <huesaturation colorizeBlue="128" colorizeRed="255" colorizeStrength="100" saturation="6" grayscaleMode="0" colorizeOn="0" colorizeGreen="128"/>
         <rasterresampler maxOversampling="2"/>
       </pipe>
       <blendMode>0</blendMode>
     </maplayer>
-    <maplayer readOnly="0" hasScaleBasedVisibilityFlag="0" autoRefreshTime="0" autoRefreshEnabled="0" simplifyDrawingTol="1" maxScale="0" simplifyMaxScale="1" refreshOnNotifyMessage="" refreshOnNotifyEnabled="0" geometry="Point" minScale="1e+08" simplifyLocal="1" type="vector" labelsEnabled="0" simplifyAlgorithm="0" simplifyDrawingHints="0">
+    <maplayer styleCategories="AllStyleCategories" simplifyLocal="1" simplifyDrawingHints="0" refreshOnNotifyMessage="" simplifyMaxScale="1" type="vector" simplifyAlgorithm="0" autoRefreshEnabled="0" minScale="1e+08" autoRefreshTime="0" refreshOnNotifyEnabled="0" labelsEnabled="0" hasScaleBasedVisibilityFlag="0" geometry="Point" readOnly="0" simplifyDrawingTol="1" maxScale="0">
       <extent>
         <xmin>-76.94903689999999585</xmin>
-        <ymin>38.98599819999999738</ymin>
+        <ymin>38.98313600000000179</ymin>
         <xmax>-76.94065200000000004</xmax>
         <ymax>38.99501479999999987</ymax>
       </extent>
       <id>testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4</id>
-      <datasource>dbname='./testudo_data.db' table="testudo_statues" (geometry) sql=</datasource>
+      <datasource>dbname='../data/testudo_data.db' table="testudo_statues" (geometry) sql=</datasource>
       <keywordList>
         <value></value>
       </keywordList>
@@ -400,7 +344,7 @@
           </spatialrefsys>
         </crs>
         <extent>
-          <spatial crs="" minx="0" maxz="0" miny="0" minz="0" maxx="0" dimensions="2" maxy="0"/>
+          <spatial maxz="0" minz="0" maxy="0" minx="0" miny="0" crs="" dimensions="2" maxx="0"/>
           <temporal>
             <period>
               <start></start>
@@ -419,27 +363,32 @@
         <map-layer-style name="default"/>
       </map-layer-style-manager>
       <auxiliaryLayer/>
-      <renderer-v2 enableorderby="0" symbollevels="0" forceraster="0" type="singleSymbol">
+      <flags>
+        <Identifiable>1</Identifiable>
+        <Removable>1</Removable>
+        <Searchable>1</Searchable>
+      </flags>
+      <renderer-v2 symbollevels="0" forceraster="0" type="singleSymbol" enableorderby="0">
         <symbols>
-          <symbol name="0" type="marker" clip_to_extent="1" alpha="1">
-            <layer class="SvgMarker" enabled="1" locked="0" pass="0">
-              <prop k="angle" v="0"/>
-              <prop k="color" v="141,90,153,255"/>
-              <prop k="fixedAspectRatio" v="0"/>
-              <prop k="horizontal_anchor_point" v="1"/>
-              <prop k="name" v="testudo_icon.svg"/>
-              <prop k="offset" v="0,0"/>
-              <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="offset_unit" v="MM"/>
-              <prop k="outline_color" v="35,35,35,255"/>
-              <prop k="outline_width" v="0"/>
-              <prop k="outline_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="outline_width_unit" v="MM"/>
-              <prop k="scale_method" v="diameter"/>
-              <prop k="size" v="7"/>
-              <prop k="size_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-              <prop k="size_unit" v="MM"/>
-              <prop k="vertical_anchor_point" v="1"/>
+          <symbol name="0" type="marker" alpha="1" clip_to_extent="1" force_rhr="0">
+            <layer enabled="1" locked="0" pass="0" class="SvgMarker">
+              <prop v="0" k="angle"/>
+              <prop v="255,0,0,255" k="color"/>
+              <prop v="0" k="fixedAspectRatio"/>
+              <prop v="1" k="horizontal_anchor_point"/>
+              <prop v="./testudo_icon.svg" k="name"/>
+              <prop v="0,0" k="offset"/>
+              <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+              <prop v="Pixel" k="offset_unit"/>
+              <prop v="35,35,35,255" k="outline_color"/>
+              <prop v="0" k="outline_width"/>
+              <prop v="3x:0,0,0,0,0,0" k="outline_width_map_unit_scale"/>
+              <prop v="Pixel" k="outline_width_unit"/>
+              <prop v="diameter" k="scale_method"/>
+              <prop v="100" k="size"/>
+              <prop v="3x:0,0,0,0,0,0" k="size_map_unit_scale"/>
+              <prop v="RenderMetersInMapUnits" k="size_unit"/>
+              <prop v="1" k="vertical_anchor_point"/>
               <data_defined_properties>
                 <Option type="Map">
                   <Option value="" name="name" type="QString"/>
@@ -454,20 +403,19 @@
         <sizescale/>
       </renderer-v2>
       <customproperties>
-        <property key="embeddedWidgets/count" value="0"/>
+        <property value="0" key="embeddedWidgets/count"/>
         <property key="variableNames"/>
         <property key="variableValues"/>
       </customproperties>
       <blendMode>0</blendMode>
       <featureBlendMode>0</featureBlendMode>
       <layerOpacity>1</layerOpacity>
-      <SingleCategoryDiagramRenderer attributeLegend="1" diagramType="Histogram">
-        <DiagramCategory penAlpha="255" enabled="0" backgroundColor="#ffffff" lineSizeType="MM" diagramOrientation="Up" penWidth="0" minScaleDenominator="0" barWidth="5" maxScaleDenominator="1e+08" width="15" backgroundAlpha="255" labelPlacementMethod="XHeight" penColor="#000000" minimumSize="0" scaleDependency="Area" sizeType="MM" opacity="1" rotationOffset="270" scaleBasedVisibility="0" lineSizeScale="3x:0,0,0,0,0,0" sizeScale="3x:0,0,0,0,0,0" height="15">
+      <SingleCategoryDiagramRenderer diagramType="Histogram" attributeLegend="1">
+        <DiagramCategory scaleDependency="Area" enabled="0" labelPlacementMethod="XHeight" minScaleDenominator="0" backgroundAlpha="255" diagramOrientation="Up" minimumSize="0" opacity="1" barWidth="5" backgroundColor="#ffffff" rotationOffset="270" scaleBasedVisibility="0" sizeScale="3x:0,0,0,0,0,0" penWidth="0" height="15" lineSizeScale="3x:0,0,0,0,0,0" maxScaleDenominator="1e+08" sizeType="MM" penAlpha="255" penColor="#000000" width="15" lineSizeType="MM">
           <fontProperties description="Sans Serif,9,-1,5,50,0,0,0,0,0" style=""/>
-          <attribute label="" field="" color="#000000"/>
         </DiagramCategory>
       </SingleCategoryDiagramRenderer>
-      <DiagramLayerSettings obstacle="0" priority="0" zIndex="0" linePlacementFlags="18" placement="0" dist="0" showAll="1">
+      <DiagramLayerSettings zIndex="0" showAll="1" obstacle="0" dist="0" priority="0" linePlacementFlags="18" placement="0">
         <properties>
           <Option type="Map">
             <Option value="" name="name" type="QString"/>
@@ -476,9 +424,13 @@
           </Option>
         </properties>
       </DiagramLayerSettings>
+      <geometryOptions geometryPrecision="0" removeDuplicateNodes="0">
+        <activeChecks/>
+        <checkConfiguration/>
+      </geometryOptions>
       <fieldConfiguration>
         <field name="n">
-          <editWidget type="">
+          <editWidget type="TextEdit">
             <config>
               <Option/>
             </config>
@@ -500,9 +452,9 @@
         </field>
       </fieldConfiguration>
       <aliases>
-        <alias index="0" field="n" name=""/>
-        <alias index="1" field="node_id" name=""/>
-        <alias index="2" field="name" name=""/>
+        <alias name="" field="n" index="0"/>
+        <alias name="" field="node_id" index="1"/>
+        <alias name="" field="name" index="2"/>
       </aliases>
       <excludeAttributesWMS/>
       <excludeAttributesWFS/>
@@ -512,25 +464,31 @@
         <default expression="" field="name" applyOnUpdate="0"/>
       </defaults>
       <constraints>
-        <constraint constraints="0" exp_strength="0" unique_strength="0" field="n" notnull_strength="0"/>
-        <constraint constraints="0" exp_strength="0" unique_strength="0" field="node_id" notnull_strength="0"/>
-        <constraint constraints="0" exp_strength="0" unique_strength="0" field="name" notnull_strength="0"/>
+        <constraint exp_strength="0" notnull_strength="0" constraints="0" field="n" unique_strength="0"/>
+        <constraint exp_strength="0" notnull_strength="0" constraints="0" field="node_id" unique_strength="0"/>
+        <constraint exp_strength="0" notnull_strength="0" constraints="0" field="name" unique_strength="0"/>
       </constraints>
       <constraintExpressions>
-        <constraint field="n" exp="" desc=""/>
-        <constraint field="node_id" exp="" desc=""/>
-        <constraint field="name" exp="" desc=""/>
+        <constraint desc="" field="n" exp=""/>
+        <constraint desc="" field="node_id" exp=""/>
+        <constraint desc="" field="name" exp=""/>
       </constraintExpressions>
+      <expressionfields/>
       <attributeactions>
-        <defaultAction key="Canvas" value="{00000000-0000-0000-0000-000000000000}"/>
+        <defaultAction value="{00000000-0000-0000-0000-000000000000}" key="Canvas"/>
       </attributeactions>
       <attributetableconfig actionWidgetStyle="dropDown" sortOrder="0" sortExpression="">
         <columns>
-          <column hidden="0" name="node_id" width="-1" type="field"/>
-          <column hidden="0" name="name" width="-1" type="field"/>
-          <column hidden="1" width="-1" type="actions"/>
+          <column name="node_id" type="field" width="-1" hidden="0"/>
+          <column name="name" type="field" width="-1" hidden="0"/>
+          <column type="actions" width="-1" hidden="1"/>
+          <column name="n" type="field" width="-1" hidden="0"/>
         </columns>
       </attributetableconfig>
+      <conditionalstyles>
+        <rowstyles/>
+        <fieldstyles/>
+      </conditionalstyles>
       <editform tolerant="1"></editform>
       <editforminit/>
       <editforminitcodesource>0</editforminitcodesource>
@@ -555,19 +513,16 @@ def my_form_open(dialog, layer, feature):
       <featformsuppress>0</featformsuppress>
       <editorlayout>generatedlayout</editorlayout>
       <editable>
+        <field name="n" editable="1"/>
         <field name="name" editable="1"/>
         <field name="node_id" editable="1"/>
       </editable>
       <labelOnTop>
-        <field name="name" labelOnTop="0"/>
-        <field name="node_id" labelOnTop="0"/>
+        <field labelOnTop="0" name="n"/>
+        <field labelOnTop="0" name="name"/>
+        <field labelOnTop="0" name="node_id"/>
       </labelOnTop>
       <widgets/>
-      <conditionalstyles>
-        <rowstyles/>
-        <fieldstyles/>
-      </conditionalstyles>
-      <expressionfields/>
       <previewExpression>node_id</previewExpression>
       <mapTip></mapTip>
     </maplayer>
@@ -578,49 +533,53 @@ def my_form_open(dialog, layer, feature):
     <layer id="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d"/>
   </layerorder>
   <properties>
-    <PositionPrecision>
-      <Automatic type="bool">true</Automatic>
-      <DecimalPlaces type="int">2</DecimalPlaces>
-    </PositionPrecision>
-    <PAL>
-      <ShowingCandidates type="bool">false</ShowingCandidates>
-      <ShowingAllLabels type="bool">false</ShowingAllLabels>
-      <SearchMethod type="int">0</SearchMethod>
-      <DrawOutlineLabels type="bool">true</DrawOutlineLabels>
-      <DrawRectOnly type="bool">false</DrawRectOnly>
-      <CandidatesPoint type="int">16</CandidatesPoint>
-      <CandidatesPolygon type="int">30</CandidatesPolygon>
-      <ShowingPartialsLabels type="bool">true</ShowingPartialsLabels>
-      <CandidatesLine type="int">50</CandidatesLine>
-    </PAL>
+    <Gui>
+      <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
+      <SelectionColorBluePart type="int">0</SelectionColorBluePart>
+      <CanvasColorRedPart type="int">255</CanvasColorRedPart>
+      <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
+      <CanvasColorBluePart type="int">255</CanvasColorBluePart>
+      <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
+      <SelectionColorRedPart type="int">255</SelectionColorRedPart>
+    </Gui>
     <SpatialRefSys>
+      <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
       <ProjectionsEnabled type="int">1</ProjectionsEnabled>
       <ProjectCRSProj4String type="QString">+proj=longlat +datum=WGS84 +no_defs</ProjectCRSProj4String>
-      <ProjectCrs type="QString">EPSG:4326</ProjectCrs>
       <ProjectCRSID type="int">3452</ProjectCRSID>
     </SpatialRefSys>
-    <Paths>
-      <Absolute type="bool">false</Absolute>
-    </Paths>
+    <Measure>
+      <Ellipsoid type="QString">WGS84</Ellipsoid>
+    </Measure>
     <Measurement>
       <DistanceUnits type="QString">meters</DistanceUnits>
       <AreaUnits type="QString">m2</AreaUnits>
     </Measurement>
+    <PAL>
+      <CandidatesPoint type="int">16</CandidatesPoint>
+      <DrawRectOnly type="bool">false</DrawRectOnly>
+      <ShowingCandidates type="bool">false</ShowingCandidates>
+      <CandidatesLine type="int">50</CandidatesLine>
+      <TextFormat type="int">0</TextFormat>
+      <DrawOutlineLabels type="bool">true</DrawOutlineLabels>
+      <ShowingAllLabels type="bool">false</ShowingAllLabels>
+      <ShowingPartialsLabels type="bool">true</ShowingPartialsLabels>
+      <SearchMethod type="int">0</SearchMethod>
+      <CandidatesPolygon type="int">30</CandidatesPolygon>
+    </PAL>
+    <PositionPrecision>
+      <DecimalPlaces type="int">2</DecimalPlaces>
+      <Automatic type="bool">true</Automatic>
+    </PositionPrecision>
+    <Paths>
+      <Absolute type="bool">false</Absolute>
+    </Paths>
     <Legend>
       <filterByMap type="bool">false</filterByMap>
     </Legend>
-    <Gui>
-      <SelectionColorAlphaPart type="int">255</SelectionColorAlphaPart>
-      <SelectionColorGreenPart type="int">255</SelectionColorGreenPart>
-      <SelectionColorRedPart type="int">255</SelectionColorRedPart>
-      <CanvasColorBluePart type="int">255</CanvasColorBluePart>
-      <CanvasColorRedPart type="int">255</CanvasColorRedPart>
-      <CanvasColorGreenPart type="int">255</CanvasColorGreenPart>
-      <SelectionColorBluePart type="int">0</SelectionColorBluePart>
-    </Gui>
-    <Measure>
-      <Ellipsoid type="QString">WGS84</Ellipsoid>
-    </Measure>
+    <Layouts>
+      <lastLayoutExportDir type="QString">/home/john/Code/TestudoMap/maps</lastLayoutExportDir>
+    </Layouts>
   </properties>
   <visibility-presets/>
   <transformContext/>
@@ -638,22 +597,22 @@ def my_form_open(dialog, layer, feature):
   <Annotations/>
   <Layouts>
     <Layout units="mm" printResolution="300" worldFileMap="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" name="Layout 1">
-      <Snapper snapToGrid="0" snapToItems="1" snapToGuides="1" tolerance="5"/>
-      <Grid offsetUnits="in" resolution="10" offsetY="0" offsetX="0" resUnits="mm"/>
+      <Snapper snapToGuides="1" snapToGrid="0" tolerance="5" snapToItems="1"/>
+      <Grid offsetY="0" offsetUnits="in" resUnits="mm" resolution="10" offsetX="0"/>
       <PageCollection>
-        <symbol name="" type="fill" clip_to_extent="1" alpha="1">
-          <layer class="SimpleFill" enabled="1" locked="0" pass="0">
-            <prop k="border_width_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-            <prop k="color" v="255,255,255,255"/>
-            <prop k="joinstyle" v="miter"/>
-            <prop k="offset" v="0,0"/>
-            <prop k="offset_map_unit_scale" v="3x:0,0,0,0,0,0"/>
-            <prop k="offset_unit" v="MM"/>
-            <prop k="outline_color" v="35,35,35,255"/>
-            <prop k="outline_style" v="no"/>
-            <prop k="outline_width" v="0.26"/>
-            <prop k="outline_width_unit" v="MM"/>
-            <prop k="style" v="solid"/>
+        <symbol name="" type="fill" alpha="1" clip_to_extent="1" force_rhr="0">
+          <layer enabled="1" locked="0" pass="0" class="SimpleFill">
+            <prop v="3x:0,0,0,0,0,0" k="border_width_map_unit_scale"/>
+            <prop v="255,255,255,255" k="color"/>
+            <prop v="miter" k="joinstyle"/>
+            <prop v="0,0" k="offset"/>
+            <prop v="3x:0,0,0,0,0,0" k="offset_map_unit_scale"/>
+            <prop v="MM" k="offset_unit"/>
+            <prop v="35,35,35,255" k="outline_color"/>
+            <prop v="no" k="outline_style"/>
+            <prop v="0.26" k="outline_width"/>
+            <prop v="MM" k="outline_width_unit"/>
+            <prop v="solid" k="style"/>
             <data_defined_properties>
               <Option type="Map">
                 <Option value="" name="name" type="QString"/>
@@ -663,9 +622,9 @@ def my_form_open(dialog, layer, feature):
             </data_defined_properties>
           </layer>
         </symbol>
-        <LayoutItem position="0,0,mm" templateUuid="{352dfa2a-054d-423f-809b-b682426c149d}" referencePoint="0" size="297,210,mm" uuid="{352dfa2a-054d-423f-809b-b682426c149d}" excludeFromExports="0" frameJoinStyle="miter" type="65638" itemRotation="0" frame="false" groupUuid="" background="true" outlineWidthM="0.3,mm" opacity="1" blendMode="0" visibility="1" positionLock="false" id="" positionOnPage="0,0,mm" zValue="0">
-          <FrameColor red="0" blue="0" green="0" alpha="255"/>
-          <BackgroundColor red="255" blue="255" green="255" alpha="255"/>
+        <LayoutItem frameJoinStyle="miter" positionOnPage="0,0,mm" visibility="1" referencePoint="0" id="" uuid="{352dfa2a-054d-423f-809b-b682426c149d}" outlineWidthM="0.3,mm" background="true" size="297,210,mm" itemRotation="0" opacity="1" type="65638" excludeFromExports="0" position="0,0,mm" groupUuid="" positionLock="false" frame="false" zValue="0" templateUuid="{352dfa2a-054d-423f-809b-b682426c149d}" blendMode="0">
+          <FrameColor green="0" alpha="255" red="0" blue="0"/>
+          <BackgroundColor green="255" alpha="255" red="255" blue="255"/>
           <LayoutObject>
             <dataDefinedProperties>
               <Option type="Map">
@@ -679,9 +638,9 @@ def my_form_open(dialog, layer, feature):
         </LayoutItem>
         <GuideCollection visible="1"/>
       </PageCollection>
-      <LayoutItem position="0,205.8,mm" templateUuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" marginX="0" htmlState="0" referencePoint="0" valign="32" size="150,4.2,mm" uuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" excludeFromExports="0" frameJoinStyle="miter" labelText="Map data © OpenStreetMap contributors, Turtle icon from Creative Tail" type="65641" itemRotation="0" frame="false" groupUuid="" background="false" outlineWidthM="0.3,mm" opacity="1" blendMode="0" visibility="1" positionLock="false" id="" positionOnPage="0,205.8,mm" marginY="0" halign="1" zValue="4">
-        <FrameColor red="0" blue="0" green="0" alpha="255"/>
-        <BackgroundColor red="255" blue="255" green="255" alpha="255"/>
+      <LayoutItem frameJoinStyle="miter" positionOnPage="0,205.8,mm" visibility="1" referencePoint="0" id="" uuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" outlineWidthM="0.3,mm" background="false" halign="1" size="150,4.2,mm" marginY="0" itemRotation="0" opacity="1" labelText="Map data © OpenStreetMap contributors, Turtle icon from Creative Tail" type="65641" excludeFromExports="0" position="0,205.8,mm" groupUuid="" positionLock="false" marginX="0" frame="false" valign="32" htmlState="0" zValue="4" templateUuid="{42ec2354-2477-4430-8020-8d960ed1a5af}" blendMode="0">
+        <FrameColor green="0" alpha="255" red="0" blue="0"/>
+        <BackgroundColor green="255" alpha="255" red="255" blue="255"/>
         <LayoutObject>
           <dataDefinedProperties>
             <Option type="Map">
@@ -693,11 +652,11 @@ def my_form_open(dialog, layer, feature):
           <customproperties/>
         </LayoutObject>
         <LabelFont description="Sans Serif,10,-1,5,50,0,0,0,0,0" style=""/>
-        <FontColor red="0" blue="0" green="0"/>
+        <FontColor green="0" red="0" blue="0"/>
       </LayoutItem>
-      <LayoutItem position="93.7522,0,mm" templateUuid="{94c33530-8a4a-4899-94b0-5dea32dc056d}" marginX="0" htmlState="0" referencePoint="0" valign="32" size="109.496,19.9083,mm" uuid="{94c33530-8a4a-4899-94b0-5dea32dc056d}" excludeFromExports="0" frameJoinStyle="miter" labelText="Know Your Nearest Testudo" type="65641" itemRotation="0" frame="true" groupUuid="" background="true" outlineWidthM="0.5,mm" opacity="1" blendMode="0" visibility="1" positionLock="false" id="" positionOnPage="93.7522,0,mm" marginY="0" halign="4" zValue="3">
-        <FrameColor red="0" blue="0" green="0" alpha="255"/>
-        <BackgroundColor red="255" blue="255" green="255" alpha="255"/>
+      <LayoutItem frameJoinStyle="miter" positionOnPage="93.7522,0,mm" visibility="1" referencePoint="0" id="" uuid="{94c33530-8a4a-4899-94b0-5dea32dc056d}" outlineWidthM="0.5,mm" background="true" halign="4" size="109.496,19.9083,mm" marginY="0" itemRotation="0" opacity="1" labelText="Know Your Nearest Testudo" type="65641" excludeFromExports="0" position="93.7522,0,mm" groupUuid="" positionLock="false" marginX="0" frame="true" valign="32" htmlState="0" zValue="3" templateUuid="{94c33530-8a4a-4899-94b0-5dea32dc056d}" blendMode="0">
+        <FrameColor green="0" alpha="255" red="0" blue="0"/>
+        <BackgroundColor green="255" alpha="255" red="255" blue="255"/>
         <LayoutObject>
           <dataDefinedProperties>
             <Option type="Map">
@@ -709,11 +668,11 @@ def my_form_open(dialog, layer, feature):
           <customproperties/>
         </LayoutObject>
         <LabelFont description="Sans Serif,24,-1,5,50,0,0,0,0,0" style=""/>
-        <FontColor red="0" blue="0" green="0"/>
+        <FontColor green="0" red="0" blue="0"/>
       </LayoutItem>
-      <LayoutItem id="" size="76.8484,60.4,mm" frameJoinStyle="bevel" positionOnPage="219.902,0,mm" titleAlignment="4" title="" templateUuid="{30de455c-a6a3-4758-8123-7d96b7d2ef3e}" wrapChar="" referencePoint="0" zValue="2" rasterBorderColor="0,0,0,255" background="true" itemRotation="0" visibility="1" columnCount="1" uuid="{30de455c-a6a3-4758-8123-7d96b7d2ef3e}" positionLock="false" boxSpace="2" columnSpace="2" rasterBorderWidth="0" excludeFromExports="0" outlineWidthM="0.5,mm" fontColor="#000000" wmsLegendWidth="50" map_uuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" blendMode="0" wmsLegendHeight="25" rasterBorder="1" opacity="1" position="219.902,0,mm" equalColumnWidth="0" lineSpacing="1" groupUuid="" splitLayer="0" symbolHeight="4" symbolWidth="7" frame="true" type="65642" legendFilterByAtlas="0" resizeToContents="1">
-        <FrameColor red="0" blue="0" green="0" alpha="255"/>
-        <BackgroundColor red="255" blue="255" green="255" alpha="255"/>
+      <LayoutItem outlineWidthM="0.5,mm" rasterBorder="1" equalColumnWidth="0" templateUuid="{30de455c-a6a3-4758-8123-7d96b7d2ef3e}" positionOnPage="219.902,0,mm" size="76.8484,66.4771,mm" resizeToContents="1" fontColor="#000000" boxSpace="2" rasterBorderWidth="0" lineSpacing="1" legendFilterByAtlas="0" id="" title="" opacity="1" symbolHeight="4" frame="true" columnCount="1" columnSpace="2" excludeFromExports="0" positionLock="false" rasterBorderColor="0,0,0,255" wrapChar="" titleAlignment="4" map_uuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" blendMode="0" groupUuid="" frameJoinStyle="bevel" splitLayer="0" position="219.902,0,mm" wmsLegendWidth="50" wmsLegendHeight="25" zValue="2" visibility="1" type="65642" background="true" itemRotation="0" referencePoint="0" uuid="{30de455c-a6a3-4758-8123-7d96b7d2ef3e}" symbolWidth="7">
+        <FrameColor green="0" alpha="255" red="0" blue="0"/>
+        <BackgroundColor green="255" alpha="255" red="255" blue="255"/>
         <LayoutObject>
           <dataDefinedProperties>
             <Option type="Map">
@@ -725,7 +684,7 @@ def my_form_open(dialog, layer, feature):
           <customproperties/>
         </LayoutObject>
         <styles>
-          <style marginBottom="3.5" name="title">
+          <style name="title" marginBottom="3.5">
             <styleFont description="Sans Serif,16,-1,5,50,0,0,0,0,0" style=""/>
           </style>
           <style name="group" marginTop="3">
@@ -737,36 +696,35 @@ def my_form_open(dialog, layer, feature):
           <style name="symbol" marginTop="2.5">
             <styleFont description="Sans Serif,9,-1,5,50,0,0,0,0,0" style=""/>
           </style>
-          <style name="symbolLabel" marginTop="2" marginLeft="2">
+          <style name="symbolLabel" marginLeft="2" marginTop="2">
             <styleFont description="Sans Serif,12,-1,5,50,0,0,0,0,0" style=""/>
           </style>
         </styles>
         <layer-tree-group>
           <customproperties/>
-          <layer-tree-layer source="dbname='/home/john/Code/TestudoMap/testudo_data.db' table=&quot;testudo_statues&quot; (geometry) sql=" providerKey="spatialite" name="testudo_statues" expanded="1" checked="Qt::Checked" id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4">
+          <layer-tree-layer source="dbname='../data/testudo_data.db' table=&quot;testudo_statues&quot; (geometry) sql=" id="testudo_statues_884bdc9a_a3ff_4a8b_868e_eee49ef590b4" providerKey="spatialite" checked="Qt::Checked" name="testudo_statues" expanded="1">
             <customproperties>
-              <property key="legend/title-label" value="Testudo Statues"/>
+              <property value="Testudo Statues" key="legend/title-label"/>
             </customproperties>
           </layer-tree-layer>
-          <layer-tree-layer source="./testudo_data.tif" providerKey="gdal" name="testudo_data" expanded="1" checked="Qt::Checked" id="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d">
+          <layer-tree-layer source="../data/testudo_data.tif" id="testudo_data_39874524_46b7_4611_9e70_c500bcfba88d" providerKey="gdal" checked="Qt::Checked" name="testudo_data" expanded="1">
             <customproperties>
-              <property key="legend/label-0" value="McKeldin"/>
-              <property key="legend/label-1" value="Alumni Center"/>
-              <property key="legend/label-2" value="Football Team House"/>
-              <property key="legend/label-3" value="Comcast Center"/>
-              <property key="legend/label-4" value="Maryland Stadium"/>
-              <property key="legend/label-5" value="Adele H. Stamp Student Union"/>
-              <property key="legend/title-label" value="Testudo Polygons"/>
+              <property value="McKeldin" key="legend/label-0"/>
+              <property value="Alumni Center" key="legend/label-1"/>
+              <property value="Football Team House" key="legend/label-2"/>
+              <property value="Comcast Center" key="legend/label-3"/>
+              <property value="Maryland Stadium" key="legend/label-4"/>
+              <property value="Adele H. Stamp Student Union" key="legend/label-5"/>
+              <property value="Van Munching Hall" key="legend/label-6"/>
+              <property value="Testudo Polygons" key="legend/title-label"/>
             </customproperties>
           </layer-tree-layer>
-          <custom-order enabled="0">
-            <item>testudo_data_39874524_46b7_4611_9e70_c500bcfba88d</item>
-          </custom-order>
+          <custom-order enabled="0"/>
         </layer-tree-group>
       </LayoutItem>
-      <LayoutItem position="0,-0.25,mm" templateUuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" drawCanvasItems="true" referencePoint="0" followPresetName="" size="297,210,mm" uuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" excludeFromExports="0" frameJoinStyle="miter" type="65639" followPreset="false" itemRotation="0" frame="false" groupUuid="" background="true" outlineWidthM="0.3,mm" opacity="1" keepLayerSet="false" mapRotation="0" blendMode="0" visibility="1" positionLock="false" id="" positionOnPage="0,-0.25,mm" zValue="1">
-        <FrameColor red="0" blue="0" green="0" alpha="255"/>
-        <BackgroundColor red="255" blue="255" green="255" alpha="255"/>
+      <LayoutItem frameJoinStyle="miter" positionOnPage="0,-0.25,mm" visibility="1" referencePoint="0" drawCanvasItems="true" id="" followPresetName="" uuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" outlineWidthM="0.3,mm" background="true" mapFlags="0" size="297,210,mm" itemRotation="0" opacity="1" followPreset="false" labelMargin="0,mm" mapRotation="0" type="65639" excludeFromExports="0" keepLayerSet="false" position="0,-0.25,mm" groupUuid="" positionLock="false" frame="false" zValue="1" templateUuid="{ba5da277-d939-4eb9-afa6-a33e767bf6f5}" blendMode="0">
+        <FrameColor green="0" alpha="255" red="0" blue="0"/>
+        <BackgroundColor green="255" alpha="255" red="255" blue="255"/>
         <LayoutObject>
           <dataDefinedProperties>
             <Option type="Map">
@@ -777,20 +735,21 @@ def my_form_open(dialog, layer, feature):
           </dataDefinedProperties>
           <customproperties/>
         </LayoutObject>
-        <Extent ymax="39.00631235164369315" xmax="-76.92597526410392561" ymin="38.97763004835631051" xmin="-76.96654023589607618"/>
+        <Extent ymax="39.00631235164369315" xmax="-76.92597526410392561" xmin="-76.96654023589607618" ymin="38.97763004835631051"/>
         <LayerSet/>
-        <AtlasMap atlasDriven="0" scalingMode="2" margin="0.10000000000000001"/>
+        <AtlasMap atlasDriven="0" margin="0.10000000000000001" scalingMode="2"/>
+        <labelBlockingItems/>
       </LayoutItem>
       <customproperties>
-        <property key="atlasRasterFormat" value="png"/>
-        <property key="imageAntialias" value="true"/>
-        <property key="imageCropMarginBottom" value="0"/>
-        <property key="imageCropMarginLeft" value="0"/>
-        <property key="imageCropMarginRight" value="0"/>
-        <property key="imageCropMarginTop" value="0"/>
-        <property key="imageCropToContents" value="false"/>
+        <property value="png" key="atlasRasterFormat"/>
+        <property value="true" key="imageAntialias"/>
+        <property value="0" key="imageCropMarginBottom"/>
+        <property value="0" key="imageCropMarginLeft"/>
+        <property value="0" key="imageCropMarginRight"/>
+        <property value="0" key="imageCropMarginTop"/>
+        <property value="false" key="imageCropToContents"/>
       </customproperties>
-      <Atlas pageNameExpression="" filterFeatures="0" sortFeatures="0" enabled="0" coverageLayer="" hideCoverage="0" filenamePattern="'output_'||@atlas_featurenumber"/>
+      <Atlas filenamePattern="'output_'||@atlas_featurenumber" enabled="0" sortFeatures="0" coverageLayer="" pageNameExpression="" hideCoverage="0" filterFeatures="0"/>
     </Layout>
   </Layouts>
 </qgis>
