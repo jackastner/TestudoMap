@@ -1,4 +1,4 @@
-.PHONY: clean all publish histogram
+.PHONY: clean all histogram
 
 init_osm_data = .init_osm_data
 create_grid = .create_grid
@@ -16,18 +16,12 @@ data_dir = data
 data_basename = $(data_dir)/testudo_data
 osm_file = $(data_basename).osm
 db_file = $(data_basename).db
-json_file = $(data_basename).json
+json_file = $(data_basename).js
 tif_file = $(data_basename).tif
 
 data_files = $(osm_file) $(db_file) $(json_file) $(tif_file)
 
-webpage_dir = webpage
-webpage_files = $(webpage_dir)/testudo_map.html $(webpage_dir)/testudo_map.css $(webpage_dir)/testudo_map.js
-
 all: $(json_file) $(tif_file) $(vector_network_voronoi)
-
-publish: $(json_file) $(webpage_files) testudo_icon.svg
-	scp $(json_file) testudo_icon.svg $(webpage_files) kastner@linux.grace.umd.edu:/users/kastner/pub/
 
 $(data_dir):
 	mkdir -p $(data_dir)

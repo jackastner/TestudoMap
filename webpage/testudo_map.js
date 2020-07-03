@@ -13,20 +13,17 @@ var attribution;
 if (window.innerWidth <= 800) {
     //mobile or other devices with small screens get shorter attribution text.
     attribution = '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> | ' +
-                  '&copy; <a href="https://www.mapbox.com/">Mapbox</a> | ' + 
                   '&copy; <a href="https://www.creativetail.com/40-free-flat-animal-icons/">Creative Tail</a>';
 } else {
     attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                   '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a> | ' +
-                  'Imagery &copy; <a href="https://www.mapbox.com/">Mapbox</a> | ' + 
                   'Turtle Icon &copy; <a href="https://www.creativetail.com/40-free-flat-animal-icons/">Creative Tail</a>, ' + 
                   '<a href="https://creativecommons.org/licenses/by/4.0/">CC-BY-4.0</a>';
 }
 
-L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoiamFja2FzdG5lciIsImEiOiJjamx2bzhmc2YweTAxM2xxcGtqcHJtN3pkIn0.YKUh0QLQT_GHHVMdAyS-Mg',{
+L.tileLayer('https://a.tile.openstreetmap.org/{z}/{x}/{y}.png',{
     attribution: attribution,
     maxZoom: 20,
-    id: 'mapbox.streets',
 }).addTo(mymap);
 
 requestData();
@@ -51,7 +48,7 @@ function addLegend(entries){
 
 function requestData(){
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "/~kastner/testudo_data.json", true);
+    xhr.open("GET", "../data/testudo_data.js", true);
     xhr.onload = function (e) {
         if (xhr.readyState === 4) {
             if (xhr.status === 200) {
@@ -67,7 +64,7 @@ function requestData(){
 
 function addGeoJson(data){
     var turtleIcon = L.icon({
-        iconUrl: '/~kastner/testudo_icon.svg',
+        iconUrl: '../qgis/testudo_icon.svg',
         iconSize: [25, 25]
     });
 

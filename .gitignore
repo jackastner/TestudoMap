@@ -1,7 +1,6 @@
 *.osm
 *.qgs~
 *.db
-*.json
 *.tif
 *.aux.xml
 .init_osm_data
