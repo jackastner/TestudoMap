@@ -30,7 +30,7 @@ publish: $(json_file) $(webpage_files) testudo_icon.svg
 	scp $(json_file) testudo_icon.svg $(webpage_files) kastner@linux.grace.umd.edu:/users/kastner/pub/
 
 $(data_dir):
-	mkdir $(data_dir)
+	mkdir -p $(data_dir)
 
 $(osm_file): overpass_query.sh | $(data_dir)
 	./overpass_query.sh $(overpass) $(osm_file)
